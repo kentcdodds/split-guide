@@ -102,7 +102,7 @@ module.exports = function sum(a, b) {
 
 Given this input, the output would be:
 
-**exercises/**:
+**exercises/**
 
 ```javascript
 /* eslint-disable */
