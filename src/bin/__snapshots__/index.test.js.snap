@@ -1,0 +1,167 @@
+exports[`test generates split-guides 1`] = `""`;
+
+exports[`test generates split-guides 2`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "extension": ".md",
+                  "name": "README.md",
+                  "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises/foo/bar/README.md",
+                  "size": 65
+                }
+              ],
+              "name": "bar",
+              "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises/foo/bar",
+              "size": 65
+            }
+          ],
+          "name": "foo",
+          "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises/foo",
+          "size": 65
+        },
+        Object {
+          "extension": ".js",
+          "name": "root.js",
+          "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises/root.js",
+          "size": 92
+        }
+      ],
+      "name": "exercises",
+      "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises",
+      "size": 157
+    },
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "extension": ".md",
+                  "name": "README.md",
+                  "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises-final/foo/bar/README.md",
+                  "size": 61
+                }
+              ],
+              "name": "bar",
+              "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises-final/foo/bar",
+              "size": 61
+            }
+          ],
+          "name": "foo",
+          "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises-final/foo",
+          "size": 61
+        },
+        Object {
+          "extension": ".js",
+          "name": "root.js",
+          "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises-final/root.js",
+          "size": 76
+        }
+      ],
+      "name": "exercises-final",
+      "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises-final",
+      "size": 137
+    },
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "extension": ".md",
+                  "name": "README.md",
+                  "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/templates/foo/bar/README.md",
+                  "size": 292
+                }
+              ],
+              "name": "bar",
+              "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/templates/foo/bar",
+              "size": 292
+            }
+          ],
+          "name": "foo",
+          "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/templates/foo",
+          "size": 292
+        },
+        Object {
+          "extension": ".js",
+          "name": "root.js",
+          "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/templates/root.js",
+          "size": 261
+        }
+      ],
+      "name": "templates",
+      "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/templates",
+      "size": 553
+    }
+  ],
+  "name": "generate",
+  "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate",
+  "size": 847
+}
+`;
+
+exports[`test generates split-guides 3`] = `
+Array [
+  Object {
+    "contents": "This is a fixture
+
+This is workshop stuff
+
+This is common stuff
+
+",
+    "file": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises/foo/bar/README.md"
+  },
+  Object {
+    "contents": "/* eslint-disable */
+module.exports = function sum(a, b) {
+  // return the sum of a and b
+}
+",
+    "file": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises/root.js"
+  }
+]
+`;
+
+exports[`test generates split-guides 4`] = `
+Array [
+  Object {
+    "contents": "This is a fixture
+
+This is common stuff
+
+This is final stuff
+",
+    "file": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises-final/foo/bar/README.md"
+  },
+  Object {
+    "contents": "/* eslint-disable */
+module.exports = function sum(a, b) {
+  return a + b
+}
+",
+    "file": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises-final/root.js"
+  }
+]
+`;
+
+exports[`test outputs helpful output 1`] = `
+"Usage: src/bin/index.js
+
+Commands:
+  generate  generate your split-guide
+
+Options:
+  -h, --help  Show help  [boolean]
+
+"
+`;
