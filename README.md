@@ -85,6 +85,8 @@ end result of your workshop should look like.
 Templates can be in any text file format (`.js`, `.md`, `.txt`, etc...). Here's an example of a `.js`
 template that uses all of the directives:
 
+**templates/exercise-01/foo.js**
+
 ```javascript
 /* eslint-disable */
 // COMMENT_START
@@ -102,7 +104,7 @@ module.exports = function sum(a, b) {
 
 Given this input, the output would be:
 
-**exercises/**
+**exercises/exercise-01/foo.js**
 
 ```javascript
 /* eslint-disable */
@@ -111,7 +113,7 @@ module.exports = function sum(a, b) {
 }
 ```
 
-**exercises-final/**
+**exercises-final/exercise-01/foo.js**
 
 ```javascript
 /* eslint-disable */
