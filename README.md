@@ -88,7 +88,6 @@ template that uses all of the directives:
 **templates/exercise-01/foo.js**
 
 ```javascript
-/* eslint-disable */
 // COMMENT_START
 // this is the top of the file, and it has comments
 // COMMENT_END
@@ -107,7 +106,6 @@ Given this input, the output would be:
 **exercises/exercise-01/foo.js**
 
 ```javascript
-/* eslint-disable */
 module.exports = function sum(a, b) {
   // return the sum of a and b
 }
@@ -116,7 +114,6 @@ module.exports = function sum(a, b) {
 **exercises-final/exercise-01/foo.js**
 
 ```javascript
-/* eslint-disable */
 module.exports = function sum(a, b) {
   return a + b
 }
