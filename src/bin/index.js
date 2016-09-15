@@ -2,14 +2,14 @@
 import yargs from 'yargs'
 import splitGuide from '../index'
 
-const args = yargs
+yargs
   .usage('Usage: $0')
-  .command('generate', 'generate your split-guide')
+  .command('generate', 'generate your split-guide', {}, generate)
   .help('h')
   .alias('h', 'help')
   .argv
 
-if (args.generate) {
+function generate() {
   splitGuide().then(result => {
     process.stdout.write(result)
   }, error => {

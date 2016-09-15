@@ -4,3 +4,5 @@ coverage
 dist
 .opt-in
 .opt-out
+test/fixtures/*/exercises
+test/fixtures/*/exercises-final
