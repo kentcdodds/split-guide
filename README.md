@@ -62,21 +62,63 @@ This will take all the templates you have in `templates` and create correspondin
 
 There are three directives you can use in your files. Each of these is used with a `START` and `END`.
 
-#### COMMENT
+#### Directives
+
+##### COMMENT
 
 Anything in this directive will not appear in the final output of either `exercises` or
 `exercises-final`. This is useful to keep notes to yourself about why your template looks a certain
 way.
 
-#### WORKSHOP
+##### WORKSHOP
 
 Anything in this directive will only appear in the `exercises-final`. This is a good place to add
 comments for what the workshoppers should be working on in this part of the code.
 
-#### FINAL
+##### FINAL
 
 Anything in this directive will only appear in the `exercises`. This is a good place to put what the
 end result of your workshop should look like.
+
+#### Using directives
+
+Templates can be in any text file format (`.js`, `.md`, `.txt`, etc...). Here's an example of a `.js`
+template that uses all of the directives:
+
+```javascript
+/* eslint-disable */
+// COMMENT_START
+// this is the top of the file, and it has comments
+// COMMENT_END
+module.exports = function sum(a, b) {
+  // FINAL_START you can put comments on the same line too
+  return a + b
+  // FINAL_END
+  // WORKSHOP_START
+  // return the sum of a and b
+  // WORKSHOP_END and on the end line and stuff too
+}
+```
+
+Given this input, the output would be:
+
+**exercises/**:
+
+```javascript
+/* eslint-disable */
+module.exports = function sum(a, b) {
+  // return the sum of a and b
+}
+```
+
+**exercises-final/**
+
+```javascript
+/* eslint-disable */
+module.exports = function sum(a, b) {
+  return a + b
+}
+```
 
 ## Inspiration
 
