@@ -120,6 +120,23 @@ module.exports = function sum(a, b) {
 }
 ```
 
+## FAQ:
+
+**How do I make it so a file only appears in one of the output directories?**
+
+If the resulting string is empty, then no file will be written. For example, this file would only
+appear in exercises-final:
+
+```markdown
+// FINAL_START
+This will only go into the final directory
+// COMMENT_START
+this is a comment that wont even appear in the final directory
+// COMMENT_END
+because the result is an empty string for the exercises directory
+// FINAL_END
+```
+
 ## Inspiration
 
 I've done quite a few workshops that follow similar patterns to this one. I was on an airplane when

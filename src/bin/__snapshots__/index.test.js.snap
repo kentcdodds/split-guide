@@ -52,11 +52,17 @@ Object {
               "name": "bar",
               "path": "<projectRootDir>/test/fixtures/generate/exercises-final/foo/bar",
               "size": 61
+            },
+            Object {
+              "extension": ".md",
+              "name": "final-only.md",
+              "path": "<projectRootDir>/test/fixtures/generate/exercises-final/foo/final-only.md",
+              "size": 109
             }
           ],
           "name": "foo",
           "path": "<projectRootDir>/test/fixtures/generate/exercises-final/foo",
-          "size": 61
+          "size": 170
         },
         Object {
           "extension": ".js",
@@ -67,7 +73,7 @@ Object {
       ],
       "name": "exercises-final",
       "path": "<projectRootDir>/test/fixtures/generate/exercises-final",
-      "size": 137
+      "size": 246
     },
     Object {
       "children": Array [
@@ -85,11 +91,17 @@ Object {
               "name": "bar",
               "path": "<projectRootDir>/test/fixtures/generate/templates/foo/bar",
               "size": 292
+            },
+            Object {
+              "extension": ".md",
+              "name": "final-only.md",
+              "path": "<projectRootDir>/test/fixtures/generate/templates/foo/final-only.md",
+              "size": 232
             }
           ],
           "name": "foo",
           "path": "<projectRootDir>/test/fixtures/generate/templates/foo",
-          "size": 292
+          "size": 524
         },
         Object {
           "extension": ".js",
@@ -100,12 +112,12 @@ Object {
       ],
       "name": "templates",
       "path": "<projectRootDir>/test/fixtures/generate/templates",
-      "size": 553
+      "size": 785
     }
   ],
   "name": "generate",
   "path": "<projectRootDir>/test/fixtures/generate",
-  "size": 847
+  "size": 1188
 }
 `;
 
@@ -142,6 +154,12 @@ This is common stuff
 This is final stuff
 ",
     "file": "<projectRootDir>/test/fixtures/generate/exercises-final/foo/bar/README.md"
+  },
+  Object {
+    "contents": "This will only go into the final directory
+because the result is an empty string for the exercises directory
+",
+    "file": "<projectRootDir>/test/fixtures/generate/exercises-final/foo/final-only.md"
   },
   Object {
     "contents": "/* eslint-disable */
