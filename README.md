@@ -72,12 +72,12 @@ way.
 
 ##### WORKSHOP
 
-Anything in this directive will only appear in the `exercises-final`. This is a good place to add
+Anything in this directive will only appear in the `exercises`. This is a good place to add
 comments for what the workshoppers should be working on in this part of the code.
 
 ##### FINAL
 
-Anything in this directive will only appear in the `exercises`. This is a good place to put what the
+Anything in this directive will only appear in the `exercises-final`. This is a good place to put what the
 end result of your workshop should look like.
 
 #### Using directives
