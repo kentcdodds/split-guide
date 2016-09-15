@@ -12,28 +12,28 @@ Object {
                 Object {
                   "extension": ".md",
                   "name": "README.md",
-                  "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises/foo/bar/README.md",
+                  "path": "<projectRootDir>/test/fixtures/generate/exercises/foo/bar/README.md",
                   "size": 65
                 }
               ],
               "name": "bar",
-              "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises/foo/bar",
+              "path": "<projectRootDir>/test/fixtures/generate/exercises/foo/bar",
               "size": 65
             }
           ],
           "name": "foo",
-          "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises/foo",
+          "path": "<projectRootDir>/test/fixtures/generate/exercises/foo",
           "size": 65
         },
         Object {
           "extension": ".js",
           "name": "root.js",
-          "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises/root.js",
+          "path": "<projectRootDir>/test/fixtures/generate/exercises/root.js",
           "size": 92
         }
       ],
       "name": "exercises",
-      "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises",
+      "path": "<projectRootDir>/test/fixtures/generate/exercises",
       "size": 157
     },
     Object {
@@ -45,28 +45,28 @@ Object {
                 Object {
                   "extension": ".md",
                   "name": "README.md",
-                  "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises-final/foo/bar/README.md",
+                  "path": "<projectRootDir>/test/fixtures/generate/exercises-final/foo/bar/README.md",
                   "size": 61
                 }
               ],
               "name": "bar",
-              "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises-final/foo/bar",
+              "path": "<projectRootDir>/test/fixtures/generate/exercises-final/foo/bar",
               "size": 61
             }
           ],
           "name": "foo",
-          "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises-final/foo",
+          "path": "<projectRootDir>/test/fixtures/generate/exercises-final/foo",
           "size": 61
         },
         Object {
           "extension": ".js",
           "name": "root.js",
-          "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises-final/root.js",
+          "path": "<projectRootDir>/test/fixtures/generate/exercises-final/root.js",
           "size": 76
         }
       ],
       "name": "exercises-final",
-      "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises-final",
+      "path": "<projectRootDir>/test/fixtures/generate/exercises-final",
       "size": 137
     },
     Object {
@@ -78,33 +78,33 @@ Object {
                 Object {
                   "extension": ".md",
                   "name": "README.md",
-                  "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/templates/foo/bar/README.md",
+                  "path": "<projectRootDir>/test/fixtures/generate/templates/foo/bar/README.md",
                   "size": 292
                 }
               ],
               "name": "bar",
-              "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/templates/foo/bar",
+              "path": "<projectRootDir>/test/fixtures/generate/templates/foo/bar",
               "size": 292
             }
           ],
           "name": "foo",
-          "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/templates/foo",
+          "path": "<projectRootDir>/test/fixtures/generate/templates/foo",
           "size": 292
         },
         Object {
           "extension": ".js",
           "name": "root.js",
-          "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/templates/root.js",
+          "path": "<projectRootDir>/test/fixtures/generate/templates/root.js",
           "size": 261
         }
       ],
       "name": "templates",
-      "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/templates",
+      "path": "<projectRootDir>/test/fixtures/generate/templates",
       "size": 553
     }
   ],
   "name": "generate",
-  "path": "/Users/kdodds/Developer/split-guide/test/fixtures/generate",
+  "path": "<projectRootDir>/test/fixtures/generate",
   "size": 847
 }
 `;
@@ -119,7 +119,7 @@ This is workshop stuff
 This is common stuff
 
 ",
-    "file": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises/foo/bar/README.md"
+    "file": "<projectRootDir>/test/fixtures/generate/exercises/foo/bar/README.md"
   },
   Object {
     "contents": "/* eslint-disable */
@@ -127,7 +127,7 @@ module.exports = function sum(a, b) {
   // return the sum of a and b
 }
 ",
-    "file": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises/root.js"
+    "file": "<projectRootDir>/test/fixtures/generate/exercises/root.js"
   }
 ]
 `;
@@ -141,7 +141,7 @@ This is common stuff
 
 This is final stuff
 ",
-    "file": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises-final/foo/bar/README.md"
+    "file": "<projectRootDir>/test/fixtures/generate/exercises-final/foo/bar/README.md"
   },
   Object {
     "contents": "/* eslint-disable */
@@ -149,7 +149,7 @@ module.exports = function sum(a, b) {
   return a + b
 }
 ",
-    "file": "/Users/kdodds/Developer/split-guide/test/fixtures/generate/exercises-final/root.js"
+    "file": "<projectRootDir>/test/fixtures/generate/exercises-final/root.js"
   }
 ]
 `;

@@ -20,6 +20,7 @@ test('generates split-guides', () => {
   return runSplitGuideCLI('generate', generateFixtures).then(stdout => {
     expect(stdout).toMatchSnapshot()
     const tree = dirTree(generateFixtures)
+    relativeizePathInTree(tree)
     expect(tree).toMatchSnapshot()
     // cannot use Promise.all here because we need to make sure the snapshots are
     // taken in the correct order
@@ -39,7 +40,8 @@ function expectDirectoryToMatchSnapshot(directory) {
   }
 
   function readFileAsPromise(file) {
-    return pify(fs.readFile)(file, 'utf8').then(contents => ({file, contents}))
+    return pify(fs.readFile)(file, 'utf8')
+      .then(contents => ({file: relativeizePath(file), contents}))
   }
 
   function expectFilesToMatchSnapshot(files) {
@@ -79,4 +81,15 @@ function runSplitGuideCLI(args = '', cwd = process.cwd()) {
       }
     })
   })
+}
+
+function relativeizePath(absolutePath) {
+  return absolutePath.replace(path.resolve(__dirname, '../../'), '<projectRootDir>')
+}
+
+function relativeizePathInTree(tree) {
+  tree.path = relativeizePath(tree.path)
+  if (tree.children) {
+    tree.children.forEach(relativeizePathInTree)
+  }
 }
