@@ -23,7 +23,7 @@
     "mkdirp": "^0.5.1",
     "pify": "^2.3.0",
     "rimraf": "^2.5.4",
-    "yargs": "^5.0.0"
+    "yargs": "5.0.0"
   },
   "devDependencies": {
     "all-contributors-cli": "^3.0.6",

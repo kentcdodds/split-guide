@@ -4,6 +4,9 @@ import glob from 'glob'
 import mkdirp from 'mkdirp'
 import rimraf from 'rimraf'
 import pify from 'pify'
+import yargs from 'yargs'
+
+const argv = yargs.argv
 
 const REGEX = {
   final: / *?\/\/ FINAL_START.*?\n((.|\n|\r)*?) *\/\/ FINAL_END.*?\n/g,
@@ -24,6 +27,9 @@ function splitGuide() {
 }
 
 function deletePreviouslyGeneratedFiles() {
+  if (argv.noclean) {
+    return Promise.resolve(true)
+  }
   const workshopDestination = path.resolve(process.cwd(), 'exercises')
   const finalDestination = path.resolve(process.cwd(), 'exercises-final')
   const pRimraf = pify(rimraf)
