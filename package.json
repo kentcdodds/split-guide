@@ -58,7 +58,6 @@
     }
   },
   "jest": {
-    "cacheDirectory": "./node_modules/.cache",
     "testEnvironment": "node",
     "testPathDirs": [
       "src"
