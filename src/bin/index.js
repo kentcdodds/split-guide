@@ -31,10 +31,11 @@ yargs
 
 
 function generate(options) {
-  splitGuide(options).then(result => {
+  return splitGuide(options).then(result => {
     process.stdout.write(result)
   }, error => {
     process.stderr.write(error)
+    return Promise.reject(error)
   })
 }
 

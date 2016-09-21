@@ -4,6 +4,7 @@ import glob from 'glob'
 import mkdirp from 'mkdirp'
 import rimraf from 'rimraf'
 import pify from 'pify'
+import {getErrorLogger} from './utils'
 
 const REGEX = {
   final: / *?\/\/ FINAL_START.*?\n((.|\n|\r)*?) *\/\/ FINAL_END.*?\n/g,
@@ -21,10 +22,15 @@ function splitGuide({
   ignore,
 } = {}) {
   return deletePreviouslyGeneratedFiles()
+    .catch(getErrorLogger('deletePreviouslyGeneratedFiles'))
     .then(getFiles)
+    .catch(getErrorLogger('getFiles'))
     .then(readAllFilesAsPromise)
+    .catch(getErrorLogger('readAllFilesAsPromise'))
     .then(createNewFileContents)
+    .catch(getErrorLogger('createNewFileContents'))
     .then(saveFiles)
+    .catch(getErrorLogger('saveFiles'))
 
   function getFiles() {
     const filesGlob = path.join(templatesDir, '**', '*')
@@ -45,7 +51,9 @@ function splitGuide({
   }
 
   function readFileAsPromise(file) {
-    return pify(fs.readFile)(file, 'utf8').then(contents => ({file, contents}))
+    return pify(fs.readFile)(file, 'utf8')
+      .then(contents => ({file, contents}))
+      .catch(getErrorLogger(`readFileAsPromise(${file})`))
   }
 
   function readAllFilesAsPromise(files) {
@@ -94,18 +102,10 @@ function splitGuide({
   }
 
   function saveFile(file, contents) {
-    return pify(mkdirp)(path.dirname(file), {}).then(() => {
-      return pify(fs.writeFile)(file, contents).then(() => file)
-    })
-  }
-
-  /**
-   * This is just for development
-   * @param {*} res Whatever is passed through the promise chain
-   * @return {*} res (the same thing that was passed)
-   */
-  function logPromise(res) { // eslint-disable-line no-unused-vars
-    console.log(res) // eslint-disable-line no-console
-    return res
+    return pify(mkdirp)(path.dirname(file), {})
+      .then(() => {
+        return pify(fs.writeFile)(file, contents)
+          .then(() => file, getErrorLogger(`fs.writeFile(${file}, <contents>)`))
+      }, getErrorLogger(`mkdirp(${path.dirname(file)})`))
   }
 }

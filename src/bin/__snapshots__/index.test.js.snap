@@ -241,9 +241,41 @@ Object {
 }
 `;
 
-exports[`test split-guide generate --no-clean=true --exercises-dir src --exercises-final-dir src-final 3`] = `Array []`;
+exports[`test split-guide generate --no-clean=true --exercises-dir src --exercises-final-dir src-final 3`] = `
+Array [
+  Object {
+    "contents": "// this will not get deleted!
+// isn\'t that cool!? 😎
+",
+    "file": "<projectRootDir>/test/fixtures/generate-no-clean/src/persist.js"
+  },
+  Object {
+    "contents": "## --no-clean
 
-exports[`test split-guide generate --no-clean=true --exercises-dir src --exercises-final-dir src-final 4`] = `Array []`;
+This allows you to generate your stuff into an existing file.
+",
+    "file": "<projectRootDir>/test/fixtures/generate-no-clean/src/README.md"
+  }
+]
+`;
+
+exports[`test split-guide generate --no-clean=true --exercises-dir src --exercises-final-dir src-final 4`] = `
+Array [
+  Object {
+    "contents": "// this will not get deleted either!
+// isn\'t that cool!? 😎
+",
+    "file": "<projectRootDir>/test/fixtures/generate-no-clean/src-final/persist.js"
+  },
+  Object {
+    "contents": "## --no-clean
+
+Just don\'t forget to delete old files!
+",
+    "file": "<projectRootDir>/test/fixtures/generate-no-clean/src-final/README.md"
+  }
+]
+`;
 
 exports[`test split-guide generate --templates-dir guides --exercises-dir app --exercises-final-dir app-finished 1`] = `""`;
 
@@ -368,9 +400,56 @@ Object {
 }
 `;
 
-exports[`test split-guide generate --templates-dir guides --exercises-dir app --exercises-final-dir app-finished 3`] = `Array []`;
+exports[`test split-guide generate --templates-dir guides --exercises-dir app --exercises-final-dir app-finished 3`] = `
+Array [
+  Object {
+    "contents": "This is a fixture
 
-exports[`test split-guide generate --templates-dir guides --exercises-dir app --exercises-final-dir app-finished 4`] = `Array []`;
+This is workshop stuff
+
+This is common stuff
+
+",
+    "file": "<projectRootDir>/test/fixtures/generate-with-args/app/foo/bar/README.md"
+  },
+  Object {
+    "contents": "/* eslint-disable */
+module.exports = function sum(a, b) {
+  // return the sum of a and b
+}
+",
+    "file": "<projectRootDir>/test/fixtures/generate-with-args/app/root.js"
+  }
+]
+`;
+
+exports[`test split-guide generate --templates-dir guides --exercises-dir app --exercises-final-dir app-finished 4`] = `
+Array [
+  Object {
+    "contents": "This is a fixture
+
+This is common stuff
+
+This is final stuff
+",
+    "file": "<projectRootDir>/test/fixtures/generate-with-args/app-finished/foo/bar/README.md"
+  },
+  Object {
+    "contents": "This will only go into the final directory
+because the result is an empty string for the exercises directory
+",
+    "file": "<projectRootDir>/test/fixtures/generate-with-args/app-finished/foo/final-only.md"
+  },
+  Object {
+    "contents": "/* eslint-disable */
+module.exports = function sum(a, b) {
+  return a + b
+}
+",
+    "file": "<projectRootDir>/test/fixtures/generate-with-args/app-finished/root.js"
+  }
+]
+`;
 
 exports[`test split-guide generate 1`] = `""`;
 
