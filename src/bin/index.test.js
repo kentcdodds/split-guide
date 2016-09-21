@@ -99,33 +99,48 @@ function expectDirectoryToMatchSnapshot(directory) {
 }
 
 function runSplitGuideCLI(args = '', cwd = process.cwd()) {
+  console.log('here')
   const isRelative = cwd[0] !== '/'
   if (isRelative) {
+    console.log('here')
     cwd = path.resolve(__dirname, cwd)
   }
+  console.log('here')
 
   return new Promise((resolve, reject) => {
+    console.log('here')
     let stdout = ''
     let stderr = ''
     const command = `${BABEL_BIN_PATH} ${SPLIT_GUIDE_PATH} ${args}`
+    console.log('here')
     const child = spawn(command, {cwd})
+    console.log('here')
 
     child.on('error', error => {
+      console.log('here')
       reject(error)
     })
 
+    console.log('here')
     child.stdout.on('data', data => {
+      console.log('here')
       stdout += data.toString()
     })
 
+    console.log('here')
     child.stderr.on('data', data => {
+      console.log('here')
       stderr += data.toString()
     })
 
+    console.log('here')
     child.on('close', () => {
+      console.log('here')
       if (stderr) {
+        console.log('here')
         reject(stderr)
       } else {
+        console.log('here')
         resolve(stdout)
       }
     })
