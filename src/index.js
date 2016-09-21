@@ -4,7 +4,7 @@ import glob from 'glob'
 import mkdirp from 'mkdirp'
 import rimraf from 'rimraf'
 import pify from 'pify'
-import {getErrorLogger} from './utils'
+import {getErrorLogger, getThenLogger} from './utils'
 
 const REGEX = {
   final: / *?\/\/ FINAL_START.*?\n((.|\n|\r)*?) *\/\/ FINAL_END.*?\n/g,
@@ -105,6 +105,7 @@ function splitGuide({
     return pify(mkdirp)(path.dirname(file), {})
       .then(() => {
         return pify(fs.writeFile)(file, contents, 'utf8')
+          .then(getThenLogger(`Wrote to ${file}`))
           .then(() => file, getErrorLogger(`fs.writeFile(${file}, <contents>)`))
       }, getErrorLogger(`mkdirp(${path.dirname(file)})`))
   }
