@@ -55,10 +55,15 @@ test('split-guide generate --ignore "**/*.ignore-me.js" "**/*.no-copy.js"', () =
 function runCLIAndAssertFileOutput(args, cwd) {
   const {exercisesDir = './exercises', exercisesFinalDir = './exercises-final'} = yargsParser(args)
   return runSplitGuideCLI(args, cwd).then(stdout => {
+    console.log('here')
     expect(stdout).toMatchSnapshot()
+    console.log('here')
     const tree = dirTree(cwd)
+    console.log('here')
     relativeizePathInTree(tree)
+    console.log('here')
     expect(tree).toMatchSnapshot()
+    console.log('here')
     // cannot use Promise.all here because we need to make sure the snapshots are
     // taken in the correct order
     return expectDirectoryToMatchSnapshot(path.resolve(cwd, exercisesDir))
@@ -67,23 +72,28 @@ function runCLIAndAssertFileOutput(args, cwd) {
 }
 
 function expectDirectoryToMatchSnapshot(directory) {
+  console.log('here')
   return pify(glob)(path.resolve(directory, '**/*'), {nodir: true})
     .then(readAllFilesAsPromise)
     .then(expectFilesToMatchSnapshot)
     .catch(getErrorLogger(`expectDirectoryToMatchSnapshot(${directory})`))
 
   function readAllFilesAsPromise(files) {
+    console.log('here')
     const allPromises = files.map(readFileAsPromise)
+    console.log('here')
     return Promise.all(allPromises)
   }
 
   function readFileAsPromise(file) {
+    console.log('here')
     return pify(fs.readFile)(file, 'utf8')
       .then(contents => ({file: relativeizePath(file), contents}))
       .catch(getErrorLogger(`readFileAsPromise(${file})`))
   }
 
   function expectFilesToMatchSnapshot(files) {
+    console.log('here')
     expect(files).toMatchSnapshot()
   }
 }
