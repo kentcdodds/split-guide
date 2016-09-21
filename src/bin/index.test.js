@@ -109,7 +109,7 @@ function runSplitGuideCLI(args = '', cwd = process.cwd()) {
     })
 
     child.stderr.on('data', data => {
-      console.log('here', data)
+      console.log('here', data.toString(), data)
       stderr += data.toString()
     })
 
