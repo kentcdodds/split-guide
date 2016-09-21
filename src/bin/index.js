@@ -33,8 +33,10 @@ yargs
 function generate(options) {
   return splitGuide(options).then(result => {
     process.stdout.write(result)
+    return result
   }, error => {
     process.stderr.write(error)
+    console.log('*************************************************************************************', error)
     return Promise.reject(error)
   })
 }

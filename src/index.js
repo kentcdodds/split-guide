@@ -23,20 +23,20 @@ function splitGuide({
   ignore,
 } = {}) {
   return deletePreviouslyGeneratedFiles()
-    .then(getThenLogger('deletePreviouslyGeneratedFiles'))
-    .catch(getErrorLogger('deletePreviouslyGeneratedFiles'))
+    // .then(getThenLogger('deletePreviouslyGeneratedFiles'))
+    // .catch(getErrorLogger('deletePreviouslyGeneratedFiles'))
     .then(getFiles)
-    .then(getThenLogger('getFiles'))
-    .catch(getErrorLogger('getFiles'))
+    // .then(getThenLogger('getFiles'))
+    // .catch(getErrorLogger('getFiles'))
     .then(readAllFilesAsPromise)
-    .then(getThenLogger('readAllFilesAsPromise'))
-    .catch(getErrorLogger('readAllFilesAsPromise'))
+    // .then(getThenLogger('readAllFilesAsPromise'))
+    // .catch(getErrorLogger('readAllFilesAsPromise'))
     .then(createNewFileContents)
-    .then(getThenLogger('createNewFileContents'))
-    .catch(getErrorLogger('createNewFileContents'))
+    // .then(getThenLogger('createNewFileContents'))
+    // .catch(getErrorLogger('createNewFileContents'))
     .then(saveFiles)
-    .then(getThenLogger('saveFiles'))
-    .catch(getErrorLogger('saveFiles'))
+    // .then(getThenLogger('saveFiles'))
+    // .catch(getErrorLogger('saveFiles'))
 
   function getFiles() {
     const filesGlob = path.join(templatesDir, '**', '*')
@@ -48,27 +48,12 @@ function splitGuide({
     if (noClean) {
       return Promise.resolve()
     }
-    // const pRimraf = pify(rimraf)
+    const pRimraf = pify(rimraf)
     const opts = {disableGlob: true}
     return Promise.all([
       pRimraf(exercisesDir, opts),
       pRimraf(exercisesFinalDir, opts),
     ])
-  }
-
-  function pRimraf(dir, opts) {
-    return new Promise((resolve, reject) => {
-      console.log('going to delete this', dir, opts)
-      rimraf(dir, opts, err => {
-        console.log('done', dir, opts)
-        if (err) {
-          console.log('*********************************\n', err, '\n***********************************')
-          reject(err)
-        } else {
-          resolve()
-        }
-      })
-    })
   }
 
   function readFileAsPromise(file) {
