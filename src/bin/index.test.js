@@ -98,6 +98,7 @@ function runSplitGuideCLI(args = '', cwd = process.cwd()) {
     let stdout = ''
     let stderr = ''
     const command = `${BABEL_BIN_PATH} ${SPLIT_GUIDE_PATH} ${args}`
+    console.log('command', command)
     const child = spawn(command, {cwd})
 
     child.on('error', error => {
