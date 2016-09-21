@@ -23,14 +23,19 @@ function splitGuide({
   ignore,
 } = {}) {
   return deletePreviouslyGeneratedFiles()
+    .then(getThenLogger('deletePreviouslyGeneratedFiles'))
     .catch(getErrorLogger('deletePreviouslyGeneratedFiles'))
     .then(getFiles)
+    .then(getThenLogger('getFiles'))
     .catch(getErrorLogger('getFiles'))
     .then(readAllFilesAsPromise)
+    .then(getThenLogger('readAllFilesAsPromise'))
     .catch(getErrorLogger('readAllFilesAsPromise'))
     .then(createNewFileContents)
+    .then(getThenLogger('createNewFileContents'))
     .catch(getErrorLogger('createNewFileContents'))
     .then(saveFiles)
+    .then(getThenLogger('saveFiles'))
     .catch(getErrorLogger('saveFiles'))
 
   function getFiles() {
