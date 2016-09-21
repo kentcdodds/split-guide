@@ -55,15 +55,10 @@ test('split-guide generate --ignore "**/*.ignore-me.js" "**/*.no-copy.js"', () =
 function runCLIAndAssertFileOutput(args, cwd) {
   const {exercisesDir = './exercises', exercisesFinalDir = './exercises-final'} = yargsParser(args)
   return runSplitGuideCLI(args, cwd).then(stdout => {
-    console.log('here')
     expect(stdout).toMatchSnapshot()
-    console.log('here')
     const tree = dirTree(cwd)
-    console.log('here')
     relativeizePathInTree(tree)
-    console.log('here')
     expect(tree).toMatchSnapshot()
-    console.log('here')
     // cannot use Promise.all here because we need to make sure the snapshots are
     // taken in the correct order
     return expectDirectoryToMatchSnapshot(path.resolve(cwd, exercisesDir))
@@ -72,75 +67,57 @@ function runCLIAndAssertFileOutput(args, cwd) {
 }
 
 function expectDirectoryToMatchSnapshot(directory) {
-  console.log('here')
   return pify(glob)(path.resolve(directory, '**/*'), {nodir: true})
     .then(readAllFilesAsPromise)
     .then(expectFilesToMatchSnapshot)
     .catch(getErrorLogger(`expectDirectoryToMatchSnapshot(${directory})`))
 
   function readAllFilesAsPromise(files) {
-    console.log('here')
     const allPromises = files.map(readFileAsPromise)
-    console.log('here')
     return Promise.all(allPromises)
   }
 
   function readFileAsPromise(file) {
-    console.log('here')
     return pify(fs.readFile)(file, 'utf8')
       .then(contents => ({file: relativeizePath(file), contents}))
       .catch(getErrorLogger(`readFileAsPromise(${file})`))
   }
 
   function expectFilesToMatchSnapshot(files) {
-    console.log('here')
     expect(files).toMatchSnapshot()
   }
 }
 
 function runSplitGuideCLI(args = '', cwd = process.cwd()) {
-  console.log('here')
   const isRelative = cwd[0] !== '/'
   if (isRelative) {
-    console.log('here')
     cwd = path.resolve(__dirname, cwd)
   }
-  console.log('here')
 
   return new Promise((resolve, reject) => {
-    console.log('here')
     let stdout = ''
     let stderr = ''
     const command = `${BABEL_BIN_PATH} ${SPLIT_GUIDE_PATH} ${args}`
-    console.log('here')
     const child = spawn(command, {cwd})
-    console.log('here')
 
     child.on('error', error => {
-      console.log('here')
       reject(error)
     })
 
-    console.log('here')
     child.stdout.on('data', data => {
-      console.log('here')
       stdout += data.toString()
     })
 
-    console.log('here')
     child.stderr.on('data', data => {
-      console.log('here')
+      console.log('here', data)
       stderr += data.toString()
     })
 
-    console.log('here')
     child.on('close', () => {
-      console.log('here')
       if (stderr) {
-        console.log('here')
+        console.log('here', stderr)
         reject(stderr)
       } else {
-        console.log('here')
         resolve(stdout)
       }
     })
