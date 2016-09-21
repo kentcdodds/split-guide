@@ -115,7 +115,7 @@ function runSplitGuideCLI(args = '', cwd = process.cwd()) {
 
     child.on('close', () => {
       if (stderr) {
-        console.log('here', stderr)
+        console.log('here', stderr, stdout)
         reject(stderr)
       } else {
         resolve(stdout)
