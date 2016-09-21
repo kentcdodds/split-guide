@@ -53,6 +53,7 @@ function splitGuide({
   function readFileAsPromise(file) {
     return pify(fs.readFile)(file, 'utf8')
       .then(contents => ({file, contents}))
+      .then(getThenLogger(`file ${file} read`))
       .catch(getErrorLogger(`readFileAsPromise(${file})`))
   }
 
