@@ -103,10 +103,21 @@ function splitGuide({
   }
 
   function saveFile(file, contents) {
+    console.log('***************** getting ready to save the file, creating the directory')
     return pify(mkdirp)(path.dirname(file), {})
       .then(() => {
-        return pify(fs.writeFile)(file, contents, 'utf8')
-          .then(getThenLogger(`Wrote to ${file}`))
+        console.log('******************* done creating the directory')
+        return new Promise((resolve, reject) => {
+          console.log('**************** getting ready to write the file')
+          fs.writeFile(file, contents, err => {
+            console.log(`************* DONE WRITING ${file}`)
+            if (err) {
+              reject(err)
+            } else {
+              resolve()
+            }
+          })
+        }).then(getThenLogger(`Wrote to ${file}`), getErrorLogger(`fs.writeFile(${file}, <contents>)`))
           .then(() => file, getErrorLogger(`fs.writeFile(${file}, <contents>)`))
       }, getErrorLogger(`mkdirp(${path.dirname(file)})`))
   }
