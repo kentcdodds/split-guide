@@ -58,6 +58,48 @@ This module is a CLI. The best place for it is in your npm scripts
 This will take all the templates you have in `templates` and create corresponding files in new
 `exercises` and `exercises-final` directories.
 
+#### generate
+
+This is currently the only available command. Below is a list of the available options (which are parsed with
+the amazing [yargs](https://github.com/yargs/yargs)):
+
+##### `--templates-dir`
+
+Defaults to `./templates`. This is where `split-guide` will look for your template files
+Whatever you provide will be be resolved as relative to where you're executing the command (`process.cwd`) (if you're
+using npm scripts, that will be where the `package.json` file is located).
+
+`split-guide` will use this to generate a glob that looks like this: `${templatesDir}/**/*`. If you wish to ignore
+certain files, you can use the [ignore](#--ignore) option.
+
+##### `--exercises-dir`
+
+Defaults to `./exercises`. This is where `split-guide` will put your exercises files
+Whatever you provide will be be resolved as relative to where you're executing the command (`process.cwd`) (if you're
+using npm scripts, that will be where the `package.json` file is located).
+
+##### `--exercises-final-dir`
+
+Defaults to `./exercises-final`. This is where `split-guide` will put your exercises-final files
+Whatever you provide will be be resolved as relative to where you're executing the command (`process.cwd`) (if you're
+using npm scripts, that will be where the `package.json` file is located).
+
+##### `--no-clean`
+
+Defaults to `false`. This will tell `split-guide` to not remove the `exercises` and `exercises-final` directories. This
+is useful if you're manually putting files into those directories and don't want to have to do that every time you run
+`split-guide`. Normally you probably shouldn't be using this.
+
+##### `--ignore`
+
+Defaults to `undefined`. Can accept multiple values. This will be passed along to `glob` when `split-guide` identifies
+the template files. See the [glob](https://github.com/isaacs/node-glob) docs. Note that you may want to pass this
+argument in quotes as glob patterns can cause issues in the command line:
+
+```
+split-guide generate --ignore "**/*.ignored.js" "**/build/**/*"
+```
+
 ### Templates
 
 There are three directives you can use in your files. Each of these is used with a `START` and `END`.

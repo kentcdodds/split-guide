@@ -1,6 +1,380 @@
-exports[`test generates split-guides 1`] = `""`;
+exports[`test split-guide --help 1`] = `
+"Usage: src/bin/index.js
 
-exports[`test generates split-guides 2`] = `
+Commands:
+  generate  generate your split-guide
+
+Options:
+  -h, --help  Show help  [boolean]
+
+"
+`;
+
+exports[`test split-guide generate --ignore "**/*.ignore-me.js" "**/*.no-copy.js" 1`] = `""`;
+
+exports[`test split-guide generate --ignore "**/*.ignore-me.js" "**/*.no-copy.js" 2`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "extension": ".md",
+          "name": "README.md",
+          "path": "<projectRootDir>/test/fixtures/generate-ignore-multiple/exercises/README.md",
+          "size": 97
+        }
+      ],
+      "name": "exercises",
+      "path": "<projectRootDir>/test/fixtures/generate-ignore-multiple/exercises",
+      "size": 97
+    },
+    Object {
+      "children": Array [
+        Object {
+          "extension": ".md",
+          "name": "README.md",
+          "path": "<projectRootDir>/test/fixtures/generate-ignore-multiple/exercises-final/README.md",
+          "size": 97
+        }
+      ],
+      "name": "exercises-final",
+      "path": "<projectRootDir>/test/fixtures/generate-ignore-multiple/exercises-final",
+      "size": 97
+    },
+    Object {
+      "children": Array [
+        Object {
+          "extension": ".md",
+          "name": "README.md",
+          "path": "<projectRootDir>/test/fixtures/generate-ignore-multiple/templates/README.md",
+          "size": 97
+        },
+        Object {
+          "extension": ".js",
+          "name": "foo.ignore-me.js",
+          "path": "<projectRootDir>/test/fixtures/generate-ignore-multiple/templates/foo.ignore-me.js",
+          "size": 46
+        },
+        Object {
+          "extension": ".js",
+          "name": "foo.no-copy.js",
+          "path": "<projectRootDir>/test/fixtures/generate-ignore-multiple/templates/foo.no-copy.js",
+          "size": 31
+        }
+      ],
+      "name": "templates",
+      "path": "<projectRootDir>/test/fixtures/generate-ignore-multiple/templates",
+      "size": 174
+    }
+  ],
+  "name": "generate-ignore-multiple",
+  "path": "<projectRootDir>/test/fixtures/generate-ignore-multiple",
+  "size": 368
+}
+`;
+
+exports[`test split-guide generate --ignore "**/*.ignore-me.js" "**/*.no-copy.js" 3`] = `
+Array [
+  Object {
+    "contents": "# --ignore
+
+This allows you to ignore files that match glob. And you can pass multiple of these!
+",
+    "file": "<projectRootDir>/test/fixtures/generate-ignore-multiple/exercises/README.md"
+  }
+]
+`;
+
+exports[`test split-guide generate --ignore "**/*.ignore-me.js" "**/*.no-copy.js" 4`] = `
+Array [
+  Object {
+    "contents": "# --ignore
+
+This allows you to ignore files that match glob. And you can pass multiple of these!
+",
+    "file": "<projectRootDir>/test/fixtures/generate-ignore-multiple/exercises-final/README.md"
+  }
+]
+`;
+
+exports[`test split-guide generate --ignore "**/*.ignore-me.js" 1`] = `""`;
+
+exports[`test split-guide generate --ignore "**/*.ignore-me.js" 2`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "extension": ".md",
+          "name": "README.md",
+          "path": "<projectRootDir>/test/fixtures/generate-ignore-one/exercises/README.md",
+          "size": 60
+        }
+      ],
+      "name": "exercises",
+      "path": "<projectRootDir>/test/fixtures/generate-ignore-one/exercises",
+      "size": 60
+    },
+    Object {
+      "children": Array [
+        Object {
+          "extension": ".md",
+          "name": "README.md",
+          "path": "<projectRootDir>/test/fixtures/generate-ignore-one/exercises-final/README.md",
+          "size": 60
+        }
+      ],
+      "name": "exercises-final",
+      "path": "<projectRootDir>/test/fixtures/generate-ignore-one/exercises-final",
+      "size": 60
+    },
+    Object {
+      "children": Array [
+        Object {
+          "extension": ".md",
+          "name": "README.md",
+          "path": "<projectRootDir>/test/fixtures/generate-ignore-one/templates/README.md",
+          "size": 60
+        },
+        Object {
+          "extension": ".js",
+          "name": "foo.ignore-me.js",
+          "path": "<projectRootDir>/test/fixtures/generate-ignore-one/templates/foo.ignore-me.js",
+          "size": 46
+        }
+      ],
+      "name": "templates",
+      "path": "<projectRootDir>/test/fixtures/generate-ignore-one/templates",
+      "size": 106
+    }
+  ],
+  "name": "generate-ignore-one",
+  "path": "<projectRootDir>/test/fixtures/generate-ignore-one",
+  "size": 226
+}
+`;
+
+exports[`test split-guide generate --ignore "**/*.ignore-me.js" 3`] = `
+Array [
+  Object {
+    "contents": "# --ignore
+
+This allows you to ignore files that match glob
+",
+    "file": "<projectRootDir>/test/fixtures/generate-ignore-one/exercises/README.md"
+  }
+]
+`;
+
+exports[`test split-guide generate --ignore "**/*.ignore-me.js" 4`] = `
+Array [
+  Object {
+    "contents": "# --ignore
+
+This allows you to ignore files that match glob
+",
+    "file": "<projectRootDir>/test/fixtures/generate-ignore-one/exercises-final/README.md"
+  }
+]
+`;
+
+exports[`test split-guide generate --no-clean=true --exercises-dir src --exercises-final-dir src-final 1`] = `""`;
+
+exports[`test split-guide generate --no-clean=true --exercises-dir src --exercises-final-dir src-final 2`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "extension": ".md",
+          "name": "README.md",
+          "path": "<projectRootDir>/test/fixtures/generate-no-clean/src/README.md",
+          "size": 77
+        },
+        Object {
+          "extension": ".js",
+          "name": "persist.js",
+          "path": "<projectRootDir>/test/fixtures/generate-no-clean/src/persist.js",
+          "size": 56
+        }
+      ],
+      "name": "src",
+      "path": "<projectRootDir>/test/fixtures/generate-no-clean/src",
+      "size": 133
+    },
+    Object {
+      "children": Array [
+        Object {
+          "extension": ".md",
+          "name": "README.md",
+          "path": "<projectRootDir>/test/fixtures/generate-no-clean/src-final/README.md",
+          "size": 54
+        },
+        Object {
+          "extension": ".js",
+          "name": "persist.js",
+          "path": "<projectRootDir>/test/fixtures/generate-no-clean/src-final/persist.js",
+          "size": 63
+        }
+      ],
+      "name": "src-final",
+      "path": "<projectRootDir>/test/fixtures/generate-no-clean/src-final",
+      "size": 117
+    },
+    Object {
+      "children": Array [
+        Object {
+          "extension": ".md",
+          "name": "README.md",
+          "path": "<projectRootDir>/test/fixtures/generate-no-clean/templates/README.md",
+          "size": 178
+        }
+      ],
+      "name": "templates",
+      "path": "<projectRootDir>/test/fixtures/generate-no-clean/templates",
+      "size": 178
+    }
+  ],
+  "name": "generate-no-clean",
+  "path": "<projectRootDir>/test/fixtures/generate-no-clean",
+  "size": 428
+}
+`;
+
+exports[`test split-guide generate --no-clean=true --exercises-dir src --exercises-final-dir src-final 3`] = `Array []`;
+
+exports[`test split-guide generate --no-clean=true --exercises-dir src --exercises-final-dir src-final 4`] = `Array []`;
+
+exports[`test split-guide generate --templates-dir guides --exercises-dir app --exercises-final-dir app-finished 1`] = `""`;
+
+exports[`test split-guide generate --templates-dir guides --exercises-dir app --exercises-final-dir app-finished 2`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "extension": ".md",
+                  "name": "README.md",
+                  "path": "<projectRootDir>/test/fixtures/generate-with-args/app/foo/bar/README.md",
+                  "size": 65
+                }
+              ],
+              "name": "bar",
+              "path": "<projectRootDir>/test/fixtures/generate-with-args/app/foo/bar",
+              "size": 65
+            }
+          ],
+          "name": "foo",
+          "path": "<projectRootDir>/test/fixtures/generate-with-args/app/foo",
+          "size": 65
+        },
+        Object {
+          "extension": ".js",
+          "name": "root.js",
+          "path": "<projectRootDir>/test/fixtures/generate-with-args/app/root.js",
+          "size": 92
+        }
+      ],
+      "name": "app",
+      "path": "<projectRootDir>/test/fixtures/generate-with-args/app",
+      "size": 157
+    },
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "extension": ".md",
+                  "name": "README.md",
+                  "path": "<projectRootDir>/test/fixtures/generate-with-args/app-finished/foo/bar/README.md",
+                  "size": 61
+                }
+              ],
+              "name": "bar",
+              "path": "<projectRootDir>/test/fixtures/generate-with-args/app-finished/foo/bar",
+              "size": 61
+            },
+            Object {
+              "extension": ".md",
+              "name": "final-only.md",
+              "path": "<projectRootDir>/test/fixtures/generate-with-args/app-finished/foo/final-only.md",
+              "size": 109
+            }
+          ],
+          "name": "foo",
+          "path": "<projectRootDir>/test/fixtures/generate-with-args/app-finished/foo",
+          "size": 170
+        },
+        Object {
+          "extension": ".js",
+          "name": "root.js",
+          "path": "<projectRootDir>/test/fixtures/generate-with-args/app-finished/root.js",
+          "size": 76
+        }
+      ],
+      "name": "app-finished",
+      "path": "<projectRootDir>/test/fixtures/generate-with-args/app-finished",
+      "size": 246
+    },
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "extension": ".md",
+                  "name": "README.md",
+                  "path": "<projectRootDir>/test/fixtures/generate-with-args/guides/foo/bar/README.md",
+                  "size": 292
+                }
+              ],
+              "name": "bar",
+              "path": "<projectRootDir>/test/fixtures/generate-with-args/guides/foo/bar",
+              "size": 292
+            },
+            Object {
+              "extension": ".md",
+              "name": "final-only.md",
+              "path": "<projectRootDir>/test/fixtures/generate-with-args/guides/foo/final-only.md",
+              "size": 232
+            }
+          ],
+          "name": "foo",
+          "path": "<projectRootDir>/test/fixtures/generate-with-args/guides/foo",
+          "size": 524
+        },
+        Object {
+          "extension": ".js",
+          "name": "root.js",
+          "path": "<projectRootDir>/test/fixtures/generate-with-args/guides/root.js",
+          "size": 261
+        }
+      ],
+      "name": "guides",
+      "path": "<projectRootDir>/test/fixtures/generate-with-args/guides",
+      "size": 785
+    }
+  ],
+  "name": "generate-with-args",
+  "path": "<projectRootDir>/test/fixtures/generate-with-args",
+  "size": 1188
+}
+`;
+
+exports[`test split-guide generate --templates-dir guides --exercises-dir app --exercises-final-dir app-finished 3`] = `Array []`;
+
+exports[`test split-guide generate --templates-dir guides --exercises-dir app --exercises-final-dir app-finished 4`] = `Array []`;
+
+exports[`test split-guide generate 1`] = `""`;
+
+exports[`test split-guide generate 2`] = `
 Object {
   "children": Array [
     Object {
@@ -121,7 +495,7 @@ Object {
 }
 `;
 
-exports[`test generates split-guides 3`] = `
+exports[`test split-guide generate 3`] = `
 Array [
   Object {
     "contents": "This is a fixture
@@ -144,7 +518,7 @@ module.exports = function sum(a, b) {
 ]
 `;
 
-exports[`test generates split-guides 4`] = `
+exports[`test split-guide generate 4`] = `
 Array [
   Object {
     "contents": "This is a fixture
@@ -170,16 +544,4 @@ module.exports = function sum(a, b) {
     "file": "<projectRootDir>/test/fixtures/generate/exercises-final/root.js"
   }
 ]
-`;
-
-exports[`test outputs helpful output 1`] = `
-"Usage: src/bin/index.js
-
-Commands:
-  generate  generate your split-guide
-
-Options:
-  -h, --help  Show help  [boolean]
-
-"
 `;

@@ -6,3 +6,7 @@ dist
 .opt-out
 test/fixtures/*/exercises
 test/fixtures/*/exercises-final
+test/fixtures/*/app
+test/fixtures/*/app-finished
+test/fixtures/generate-no-clean/src/README.md
+test/fixtures/generate-no-clean/src-final/README.md

@@ -13,78 +13,99 @@ const REGEX = {
 
 export default splitGuide
 
-function splitGuide() {
-  const filesGlob = path.resolve(process.cwd(), './templates/**/*')
-  const globOptions = {nodir: true}
+function splitGuide({
+  templatesDir,
+  exercisesDir,
+  exercisesFinalDir,
+  noClean,
+  ignore,
+} = {}) {
   return deletePreviouslyGeneratedFiles()
-    .then(() => pify(glob)(filesGlob, globOptions))
+    .then(getFiles)
     .then(readAllFilesAsPromise)
     .then(createNewFileContents)
     .then(saveFiles)
-}
 
-function deletePreviouslyGeneratedFiles() {
-  const workshopDestination = path.resolve(process.cwd(), 'exercises')
-  const finalDestination = path.resolve(process.cwd(), 'exercises-final')
-  const pRimraf = pify(rimraf)
-  const opts = {disableGlob: true}
-  return Promise.all([
-    pRimraf(workshopDestination, opts),
-    pRimraf(finalDestination, opts),
-  ])
-}
+  function getFiles() {
+    const filesGlob = path.join(templatesDir, '**', '*')
+    const globOptions = {nodir: true, ignore}
+    return pify(glob)(filesGlob, globOptions)
+  }
 
-function readFileAsPromise(file) {
-  return pify(fs.readFile)(file, 'utf8').then(contents => ({file, contents}))
-}
+  function deletePreviouslyGeneratedFiles() {
+    if (noClean) {
+      return Promise.resolve()
+    }
+    const pRimraf = pify(rimraf)
+    const opts = {disableGlob: true}
+    return Promise.all([
+      pRimraf(exercisesDir, opts),
+      pRimraf(exercisesFinalDir, opts),
+    ])
+  }
 
-function readAllFilesAsPromise(files) {
-  const allPromises = files.map(readFileAsPromise)
-  return Promise.all(allPromises)
-}
+  function readFileAsPromise(file) {
+    return pify(fs.readFile)(file, 'utf8').then(contents => ({file, contents}))
+  }
 
-function createNewFileContents(fileObjs) {
-  return fileObjs.map(fileObj => {
-    return Object.assign({
-      finalContents: createFinalContents(fileObj.contents),
-      workshopContents: createWorkshopContents(fileObj.contents),
-    }, fileObj)
-  })
-}
+  function readAllFilesAsPromise(files) {
+    const allPromises = files.map(readFileAsPromise)
+    return Promise.all(allPromises)
+  }
 
-function createFinalContents(contents) {
-  return contents
+  function createNewFileContents(fileObjs) {
+    return fileObjs.map(fileObj => {
+      return Object.assign({
+        finalContents: createFinalContents(fileObj.contents),
+        workshopContents: createWorkshopContents(fileObj.contents),
+      }, fileObj)
+    })
+  }
+
+  function createFinalContents(contents) {
+    return contents
     .replace(REGEX.final, '$1')
     .replace(REGEX.workshop, '')
     .replace(REGEX.comment, '')
-}
+  }
 
-function createWorkshopContents(contents) {
-  return contents
+  function createWorkshopContents(contents) {
+    return contents
     .replace(REGEX.workshop, '$1')
     .replace(REGEX.final, '')
     .replace(REGEX.comment, '')
-}
+  }
 
-function saveFiles(fileObjs) {
-  const allPromises = fileObjs.reduce((all, fileObj) => {
-    return [...all, ...saveFinalAndWorkshop(fileObj)]
-  }, [])
-  return Promise.all(allPromises)
-}
+  function saveFiles(fileObjs) {
+    const allPromises = fileObjs.reduce((all, fileObj) => {
+      return [...all, ...saveFinalAndWorkshop(fileObj)]
+    }, [])
+    return Promise.all(allPromises)
+  }
 
-function saveFinalAndWorkshop({file, workshopContents, finalContents}) {
-  const relativeDestination = path.relative(path.resolve(process.cwd(), 'templates'), file)
-  const workshopDestination = path.resolve(process.cwd(), 'exercises', relativeDestination)
-  const finalDestination = path.resolve(process.cwd(), 'exercises-final', relativeDestination)
-  return [
-    workshopContents ? saveFile(workshopDestination, workshopContents) : null,
-    finalContents ? saveFile(finalDestination, finalContents) : null,
-  ].filter(p => !!p) // filter out the files that weren't saved
-}
+  function saveFinalAndWorkshop({file, workshopContents, finalContents}) {
+    const relativeDestination = path.relative(templatesDir, file)
+    const workshopDestination = path.resolve(exercisesDir, relativeDestination)
+    const finalDestination = path.resolve(exercisesFinalDir, relativeDestination)
+    return [
+      workshopContents ? saveFile(workshopDestination, workshopContents) : null,
+      finalContents ? saveFile(finalDestination, finalContents) : null,
+    ].filter(p => !!p) // filter out the files that weren't saved
+  }
 
-function saveFile(file, contents) {
-  return pify(mkdirp)(path.dirname(file), {}).then(() => {
-    return pify(fs.writeFile)(file, contents).then(() => file)
-  })
+  function saveFile(file, contents) {
+    return pify(mkdirp)(path.dirname(file), {}).then(() => {
+      return pify(fs.writeFile)(file, contents).then(() => file)
+    })
+  }
+
+  /**
+   * This is just for development
+   * @param {*} res Whatever is passed through the promise chain
+   * @return {*} res (the same thing that was passed)
+   */
+  function logPromise(res) { // eslint-disable-line no-unused-vars
+    console.log(res) // eslint-disable-line no-console
+    return res
+  }
 }

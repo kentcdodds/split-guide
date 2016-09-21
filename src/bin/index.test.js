@@ -9,25 +9,59 @@ import dirTree from 'directory-tree'
 const SPLIT_GUIDE_PATH = require.resolve('./index')
 const BABEL_BIN_PATH = require.resolve('babel-cli/bin/babel-node')
 
-test('outputs helpful output', () => {
+test('split-guide --help', () => {
   return runSplitGuideCLI('--help').then(stdout => {
     expect(stdout).toMatchSnapshot()
   })
 })
 
-test('generates split-guides', () => {
-  const generateFixtures = path.resolve(__dirname, '../../test/fixtures/generate')
-  return runSplitGuideCLI('generate', generateFixtures).then(stdout => {
+test('split-guide generate', () => {
+  return runCLIAndAssertFileOutput(
+    'generate',
+    path.resolve(__dirname, '../../test/fixtures/generate'),
+  )
+})
+
+test('split-guide generate --templates-dir guides --exercises-dir app --exercises-final-dir app-finished', () => {
+  return runCLIAndAssertFileOutput(
+    'generate --templates-dir guides --exercises-dir app --exercises-final-dir app-finished',
+    path.resolve(__dirname, '../../test/fixtures/generate-with-args'),
+  )
+})
+
+test('split-guide generate --no-clean=true --exercises-dir src --exercises-final-dir src-final', () => {
+  return runCLIAndAssertFileOutput(
+    'generate --no-clean=true --exercises-dir src --exercises-final-dir src-final',
+    path.resolve(__dirname, '../../test/fixtures/generate-no-clean'),
+  )
+})
+
+test('split-guide generate --ignore "**/*.ignore-me.js"', () => {
+  return runCLIAndAssertFileOutput(
+    'generate --ignore "**/*.ignore-me.js"',
+    path.resolve(__dirname, '../../test/fixtures/generate-ignore-one'),
+  )
+})
+
+test('split-guide generate --ignore "**/*.ignore-me.js" "**/*.no-copy.js"', () => {
+  return runCLIAndAssertFileOutput(
+    'generate --ignore "**/*.ignore-me.js" "**/*.no-copy.js"',
+    path.resolve(__dirname, '../../test/fixtures/generate-ignore-multiple'),
+  )
+})
+
+function runCLIAndAssertFileOutput(args, cwd) {
+  return runSplitGuideCLI(args, cwd).then(stdout => {
     expect(stdout).toMatchSnapshot()
-    const tree = dirTree(generateFixtures)
+    const tree = dirTree(cwd)
     relativeizePathInTree(tree)
     expect(tree).toMatchSnapshot()
     // cannot use Promise.all here because we need to make sure the snapshots are
     // taken in the correct order
-    return expectDirectoryToMatchSnapshot(path.resolve(generateFixtures, './exercises'))
-      .then(() => expectDirectoryToMatchSnapshot(path.resolve(generateFixtures, './exercises-final')))
+    return expectDirectoryToMatchSnapshot(path.resolve(cwd, './exercises'))
+      .then(() => expectDirectoryToMatchSnapshot(path.resolve(cwd, './exercises-final')))
   })
-})
+}
 
 function expectDirectoryToMatchSnapshot(directory) {
   return pify(glob)(path.resolve(directory, '**/*'), {nodir: true})
