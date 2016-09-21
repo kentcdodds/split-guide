@@ -111,7 +111,8 @@ function splitGuide({
         return new Promise((resolve, reject) => {
           console.log('**************** getting ready to write the file')
           fs.writeFile(file, contents, err => {
-            console.log(`************* DONE WRITING ${file}`)
+            console.log(`************* DONE WRITING ${file}`, err)
+            console.log('*************************************************************')
             if (err) {
               reject(err)
             } else {
