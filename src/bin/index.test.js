@@ -7,6 +7,9 @@ import dirTree from 'directory-tree'
 import yargsParser from 'yargs-parser'
 import {getErrorLogger} from '../utils'
 
+// this is a bit of a longrunning test...
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000 // eslint-disable-line no-undef
+
 const SPLIT_GUIDE_PATH = require.resolve('./index')
 const BABEL_BIN_PATH = require.resolve('babel-cli/bin/babel-node')
 
