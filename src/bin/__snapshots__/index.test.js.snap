@@ -245,7 +245,7 @@ exports[`test split-guide generate --no-clean=true --exercises-dir src --exercis
 Array [
   Object {
     "contents": "// this will not get deleted!
-// isn\'t that cool!? 😎
+// isn't that cool!? 😎
 ",
     "file": "<projectRootDir>/test/fixtures/generate-no-clean/src/persist.js"
   },
@@ -263,14 +263,14 @@ exports[`test split-guide generate --no-clean=true --exercises-dir src --exercis
 Array [
   Object {
     "contents": "// this will not get deleted either!
-// isn\'t that cool!? 😎
+// isn't that cool!? 😎
 ",
     "file": "<projectRootDir>/test/fixtures/generate-no-clean/src-final/persist.js"
   },
   Object {
     "contents": "## --no-clean
 
-Just don\'t forget to delete old files!
+Just don't forget to delete old files!
 ",
     "file": "<projectRootDir>/test/fixtures/generate-no-clean/src-final/README.md"
   }
