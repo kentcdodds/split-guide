@@ -7,7 +7,7 @@ import dirTree from 'directory-tree'
 import yargsParser from 'yargs-parser'
 import {getErrorLogger} from '../utils'
 
-// this is a bit of a longrunning test...
+// this is a bit of a long running test...
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000 // eslint-disable-line no-undef
 
 const SPLIT_GUIDE_PATH = require.resolve('./index')
