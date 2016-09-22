@@ -1,4 +1,3 @@
-/* eslint no-console:0 */
 import path from 'path'
 import fs from 'fs'
 import spawn from 'spawn-command'
@@ -109,13 +108,11 @@ function runSplitGuideCLI(args = '', cwd = process.cwd()) {
     })
 
     child.stderr.on('data', data => {
-      console.log('here', data.toString(), data)
       stderr += data.toString()
     })
 
     child.on('close', () => {
       if (stderr) {
-        console.log('here', stderr, stdout)
         reject(stderr)
       } else {
         resolve(stdout)

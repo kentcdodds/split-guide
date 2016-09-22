@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint no-console:0 */
 import path from 'path'
 import yargs from 'yargs'
 import splitGuide from '../index'
@@ -34,11 +33,9 @@ yargs
 function generate(options) {
   return splitGuide(options).then(result => {
     process.stdout.write(result)
-    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', result)
     return result
   }, error => {
     process.stderr.write(error)
-    console.log('*************************************************************************************', error)
     return Promise.reject(error)
   })
 }

@@ -1,11 +1,10 @@
-/* eslint no-console:0 */
 import fs from 'fs'
 import path from 'path'
 import glob from 'glob'
 import mkdirp from 'mkdirp'
 import rimraf from 'rimraf'
 import pify from 'pify'
-import {getErrorLogger, getThenLogger} from './utils'
+import {getErrorLogger} from './utils'
 
 const REGEX = {
   final: / *?\/\/ FINAL_START.*?\n((.|\n|\r)*?) *\/\/ FINAL_END.*?\n/g,
@@ -23,20 +22,10 @@ function splitGuide({
   ignore,
 } = {}) {
   return deletePreviouslyGeneratedFiles()
-    // .then(getThenLogger('deletePreviouslyGeneratedFiles'))
-    // .catch(getErrorLogger('deletePreviouslyGeneratedFiles'))
     .then(getFiles)
-    // .then(getThenLogger('getFiles'))
-    // .catch(getErrorLogger('getFiles'))
     .then(readAllFilesAsPromise)
-    // .then(getThenLogger('readAllFilesAsPromise'))
-    // .catch(getErrorLogger('readAllFilesAsPromise'))
     .then(createNewFileContents)
-    // .then(getThenLogger('createNewFileContents'))
-    // .catch(getErrorLogger('createNewFileContents'))
     .then(saveFiles)
-    // .then(getThenLogger('saveFiles'))
-    // .catch(getErrorLogger('saveFiles'))
 
   function getFiles() {
     const filesGlob = path.join(templatesDir, '**', '*')
@@ -59,8 +48,6 @@ function splitGuide({
   function readFileAsPromise(file) {
     return pify(fs.readFile)(file, 'utf8')
       .then(contents => ({file, contents}))
-      .then(getThenLogger(`file ${file} read`))
-      .catch(getErrorLogger(`readFileAsPromise(${file})`))
   }
 
   function readAllFilesAsPromise(files) {
