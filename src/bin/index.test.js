@@ -1,10 +1,14 @@
-/* eslint no-console:0 */
 import path from 'path'
 import fs from 'fs'
 import spawn from 'spawn-command'
 import pify from 'pify'
 import glob from 'glob'
 import dirTree from 'directory-tree'
+import yargsParser from 'yargs-parser'
+import {getErrorLogger} from '../utils'
+
+// this is a bit of a long running test...
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000 // eslint-disable-line no-undef
 
 const SPLIT_GUIDE_PATH = require.resolve('./index')
 const BABEL_BIN_PATH = require.resolve('babel-cli/bin/babel-node')
@@ -51,6 +55,7 @@ test('split-guide generate --ignore "**/*.ignore-me.js" "**/*.no-copy.js"', () =
 })
 
 function runCLIAndAssertFileOutput(args, cwd) {
+  const {exercisesDir = './exercises', exercisesFinalDir = './exercises-final'} = yargsParser(args)
   return runSplitGuideCLI(args, cwd).then(stdout => {
     expect(stdout).toMatchSnapshot()
     const tree = dirTree(cwd)
@@ -58,15 +63,16 @@ function runCLIAndAssertFileOutput(args, cwd) {
     expect(tree).toMatchSnapshot()
     // cannot use Promise.all here because we need to make sure the snapshots are
     // taken in the correct order
-    return expectDirectoryToMatchSnapshot(path.resolve(cwd, './exercises'))
-      .then(() => expectDirectoryToMatchSnapshot(path.resolve(cwd, './exercises-final')))
-  })
+    return expectDirectoryToMatchSnapshot(path.resolve(cwd, exercisesDir))
+      .then(() => expectDirectoryToMatchSnapshot(path.resolve(cwd, exercisesFinalDir)))
+  }, getErrorLogger('runSplitGuideCLI'))
 }
 
 function expectDirectoryToMatchSnapshot(directory) {
   return pify(glob)(path.resolve(directory, '**/*'), {nodir: true})
     .then(readAllFilesAsPromise)
     .then(expectFilesToMatchSnapshot)
+    .catch(getErrorLogger(`expectDirectoryToMatchSnapshot(${directory})`))
 
   function readAllFilesAsPromise(files) {
     const allPromises = files.map(readFileAsPromise)
@@ -76,6 +82,7 @@ function expectDirectoryToMatchSnapshot(directory) {
   function readFileAsPromise(file) {
     return pify(fs.readFile)(file, 'utf8')
       .then(contents => ({file: relativeizePath(file), contents}))
+      .catch(getErrorLogger(`readFileAsPromise(${file})`))
   }
 
   function expectFilesToMatchSnapshot(files) {
