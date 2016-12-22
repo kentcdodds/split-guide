@@ -100,6 +100,14 @@ argument in quotes as glob patterns can cause issues in the command line:
 split-guide generate --ignore "**/*.ignored.js" "**/build/**/*"
 ```
 
+##### `--silent-success`
+
+By default, `split-guide` will log out how many and which files were saved. Add this to prevent that.
+
+##### `--silent-all`
+
+This will do the same as `--silent-success` but will also silence any errors. It's not recommended to use this option.
+
 ### Templates
 
 There are three directives you can use in your files. Each of these is used with a `START` and `END`.

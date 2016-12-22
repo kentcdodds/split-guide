@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import path from 'path'
 import yargs from 'yargs'
+import chalk from 'chalk'
 import splitGuide from '../index'
 
 yargs
@@ -24,6 +25,12 @@ yargs
     ignore: {
       type: 'array',
     },
+    silentSuccess: {
+      type: 'boolean',
+    },
+    silentAll: {
+      type: 'boolean',
+    },
   }, generate)
   .help('h')
   .alias('h', 'help')
@@ -31,11 +38,21 @@ yargs
 
 
 function generate(options) {
-  return splitGuide(options).then(result => {
-    process.stdout.write(result)
-    return result
+  return splitGuide(options).then(savedFiles => {
+    if (!options.silentSuccess && !options.silentAll) {
+      const count = savedFiles.length
+      const files = `file${count === 1 ? '' : 's'}`
+      const colon = `${count === 0 ? '' : ':'}`
+      process.stdout.write(`
+${chalk.green(`Saved ${count} ${files}${colon}`)}
+${savedFiles.join('\n')}
+      `.trim())
+    }
+    return savedFiles
   }, error => {
-    process.stderr.write(error)
+    if (!options.silentAll) {
+      process.stderr.write(error.toString())
+    }
     return Promise.reject(error)
   })
 }

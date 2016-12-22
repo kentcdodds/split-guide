@@ -6,9 +6,7 @@ cache:
 notifications:
   email: false
 node_js:
-  - '6.5.0'
-before_script:
-  - npm prune
+  - '6'
 script:
   - npm start validate
 after_success:
