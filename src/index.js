@@ -92,7 +92,7 @@ function splitGuide({
     return [
       workshopContents ? saveFile(workshopDestination, workshopContents) : null,
       finalContents ? saveFile(finalDestination, finalContents) : null,
-    ].filter(p => !!p) // filter out the files that weren't saved
+    ].filter(Boolean) // filter out the files that weren't saved
   }
 
   function saveFile(file, contents) {
