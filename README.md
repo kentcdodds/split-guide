@@ -42,6 +42,12 @@ npm install --save-dev split-guide
 
 ## Usage
 
+### Video
+
+I recorded a video to teach people how to use `split-guide` and contribute to one of my workshops:
+
+[![split-guide-video](other/split-guide-video.png)](https://youtu.be/CSVOPw_5OT0)
+
 ### CLI
 
 This module is a CLI. The best place for it is in your npm scripts
