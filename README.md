@@ -116,7 +116,7 @@ This will do the same as `--silent-success` but will also silence any errors. It
 
 ### Templates
 
-There are three directives you can use in your files. Each of these is used with a `START` and `END`. If you do not want to type these yourself and use atom as your editor, there is [a plugin](https://github.com/janis-kra/split-guide-atom) that does this for you.
+There are three directives you can use in your files. Each of these is used with a `START` and `END`.
 
 #### Directives
 
@@ -201,7 +201,9 @@ I wrote most of this code and I had a blast. So it was inspiring to me :)
 
 I am unaware of other solutions. Feel free to submit a PR if you know of similar solutions.
 
-There is [an atom plugin](https://github.com/janis-kra/split-guide-atom) that can do the typing for you.
+## Related Projects
+
+* [split-guide-atom](https://github.com/janis-kra/split-guide-atom) (Atom plugin): Helps creating workshops by typing the directives for you when you issue the corresponding command
 
 ## Contributors
 
