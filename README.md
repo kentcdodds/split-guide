@@ -201,6 +201,10 @@ I wrote most of this code and I had a blast. So it was inspiring to me :)
 
 I am unaware of other solutions. Feel free to submit a PR if you know of similar solutions.
 
+## Related Projects
+
+* [split-guide-atom](https://github.com/janis-kra/split-guide-atom) (Atom plugin): Helps creating workshops by typing the directives for you when you issue the corresponding command
+
 ## Contributors
 
 Thanks goes to these people ([emoji key][emojis]):
