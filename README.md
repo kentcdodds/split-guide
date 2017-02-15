@@ -8,7 +8,7 @@ A tool to help generate code for workshop repositories
 [![downloads][downloads-badge]][npm-stat]
 [![MIT License][license-badge]][LICENSE]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome][prs-badge]][prs]
 [![Donate][donate-badge]][donate]
 [![Code of Conduct][coc-badge]][coc]
@@ -192,8 +192,8 @@ I am unaware of other solutions. Feel free to submit a PR if you know of similar
 Thanks goes to these people ([emoji key][emojis]):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-| [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub>Kent C. Dodds</sub>](https://kentcdodds.com)<br />[💻](https://github.com/kentcdodds/split-guide/commits?author=kentcdodds) [📖](https://github.com/kentcdodds/split-guide/commits?author=kentcdodds) 🚇 [⚠️](https://github.com/kentcdodds/split-guide/commits?author=kentcdodds) 💡 | [<img src="https://avatars.githubusercontent.com/u/193238?v=3" width="100px;"/><br /><sub>Jack Franklin</sub>](http://www.jackfranklin.co.uk)<br />[📖](https://github.com/kentcdodds/split-guide/commits?author=jackfranklin) |
-| :---: | :---: |
+| [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub>Kent C. Dodds</sub>](https://kentcdodds.com)<br />[💻](https://github.com/kentcdodds/split-guide/commits?author=kentcdodds) [📖](https://github.com/kentcdodds/split-guide/commits?author=kentcdodds) 🚇 [⚠️](https://github.com/kentcdodds/split-guide/commits?author=kentcdodds) 💡 | [<img src="https://avatars.githubusercontent.com/u/193238?v=3" width="100px;"/><br /><sub>Jack Franklin</sub>](http://www.jackfranklin.co.uk)<br />[📖](https://github.com/kentcdodds/split-guide/commits?author=jackfranklin) | [<img src="https://avatars.githubusercontent.com/u/5465958?v=3" width="100px;"/><br /><sub>Ray Gesualdo</sub>](https://www.raygesualdo.com)<br />[💻](https://github.com/kentcdodds/split-guide/commits?author=raygesualdo) |
+| :---: | :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification. Contributions of any kind welcome!
