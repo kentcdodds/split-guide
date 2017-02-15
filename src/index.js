@@ -26,6 +26,7 @@ function splitGuide({
     .then(readAllFilesAsPromise)
     .then(createNewFileContents)
     .then(saveFiles)
+    .then(reduceFilenames)
 
   function getFiles() {
     const filesGlob = path.join(templatesDir, '**', '*')
@@ -49,10 +50,23 @@ function splitGuide({
     return pify(fs.readFile)(file, 'utf8')
       .then(contents => ({file, contents}))
   }
+  
+  function promiseChunker(remainingArrayElements, chunkSize) {
+    if (remainingArrayElements.length === 0) return Promise.resolve([])
+    const currentChunk = remainingArrayElements.slice(0, chunkSize)
+    const nextChunk = remainingArrayElements.slice(chunkSize)
+    return Promise.all(currentChunk.map(([func, ...args]) => func(...args)))
+      .then(resultsArray => {
+        return promiseChunker(nextChunk, chunkSize)
+          .then(nextResultsArray => {
+            return Promise.resolve([...resultsArray, ...nextResultsArray])
+          })
+      })
+  }
 
   function readAllFilesAsPromise(files) {
-    const allPromises = files.map(readFileAsPromise)
-    return Promise.all(allPromises)
+    const allPromises = files.map(file => [readFileAsPromise, file])
+    return promiseChunker(allPromises, 100)
   }
 
   function createNewFileContents(fileObjs) {
@@ -82,7 +96,7 @@ function splitGuide({
     const allPromises = fileObjs.reduce((all, fileObj) => {
       return [...all, ...saveFinalAndWorkshop(fileObj)]
     }, [])
-    return Promise.all(allPromises)
+    return promiseChunker(allPromises, 100)
   }
 
   function saveFinalAndWorkshop({file, workshopContents, finalContents}) {
@@ -90,9 +104,15 @@ function splitGuide({
     const workshopDestination = path.resolve(exercisesDir, relativeDestination)
     const finalDestination = path.resolve(exercisesFinalDir, relativeDestination)
     return [
-      workshopContents ? saveFile(workshopDestination, workshopContents) : null,
-      finalContents ? saveFile(finalDestination, finalContents) : null,
+      workshopContents ? [saveFile, workshopDestination, workshopContents] : null,
+      finalContents ? [saveFile, finalDestination, finalContents] : null,
     ].filter(p => !!p) // filter out the files that weren't saved
+  }
+  
+  function reduceFilenames(filenames) {
+    return filenames.reduce((outputString, currentFilename) => {
+      return `${outputString}${outputString.length > 0 ? '\n' : ''}${currentFilename}`
+    })
   }
 
   function saveFile(file, contents) {
