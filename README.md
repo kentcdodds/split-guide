@@ -42,6 +42,12 @@ npm install --save-dev split-guide
 
 ## Usage
 
+### Video
+
+I recorded a video to teach people how to use `split-guide` and contribute to one of my workshops:
+
+[![split-guide-video](other/split-guide-video.png)](https://youtu.be/CSVOPw_5OT0)
+
 ### CLI
 
 This module is a CLI. The best place for it is in your npm scripts
@@ -99,6 +105,14 @@ argument in quotes as glob patterns can cause issues in the command line:
 ```
 split-guide generate --ignore "**/*.ignored.js" "**/build/**/*"
 ```
+
+##### `--silent-success`
+
+By default, `split-guide` will log out how many and which files were saved. Add this to prevent that.
+
+##### `--silent-all`
+
+This will do the same as `--silent-success` but will also silence any errors. It's not recommended to use this option.
 
 ### Templates
 
@@ -187,13 +201,17 @@ I wrote most of this code and I had a blast. So it was inspiring to me :)
 
 I am unaware of other solutions. Feel free to submit a PR if you know of similar solutions.
 
+## Related Projects
+
+* [split-guide-atom](https://github.com/janis-kra/split-guide-atom) (Atom plugin): Helps creating workshops by typing the directives for you when you issue the corresponding command
+
 ## Contributors
 
 Thanks goes to these people ([emoji key][emojis]):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-| [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub>Kent C. Dodds</sub>](https://kentcdodds.com)<br />[💻](https://github.com/kentcdodds/split-guide/commits?author=kentcdodds) [📖](https://github.com/kentcdodds/split-guide/commits?author=kentcdodds) 🚇 [⚠️](https://github.com/kentcdodds/split-guide/commits?author=kentcdodds) 💡 | [<img src="https://avatars.githubusercontent.com/u/193238?v=3" width="100px;"/><br /><sub>Jack Franklin</sub>](http://www.jackfranklin.co.uk)<br />[📖](https://github.com/kentcdodds/split-guide/commits?author=jackfranklin) | [<img src="https://avatars.githubusercontent.com/u/5465958?v=3" width="100px;"/><br /><sub>Ray Gesualdo</sub>](https://www.raygesualdo.com)<br />[💻](https://github.com/kentcdodds/split-guide/commits?author=raygesualdo) |
-| :---: | :---: | :---: |
+| [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub>Kent C. Dodds</sub>](https://kentcdodds.com)<br />[💻](https://github.com/kentcdodds/split-guide/commits?author=kentcdodds) [📖](https://github.com/kentcdodds/split-guide/commits?author=kentcdodds) 🚇 [⚠️](https://github.com/kentcdodds/split-guide/commits?author=kentcdodds) 💡 | [<img src="https://avatars.githubusercontent.com/u/193238?v=3" width="100px;"/><br /><sub>Jack Franklin</sub>](http://www.jackfranklin.co.uk)<br />[📖](https://github.com/kentcdodds/split-guide/commits?author=jackfranklin) | [<img src="https://avatars.githubusercontent.com/u/8240324?v=3" width="100px;"/><br /><sub>Janis Krasemann</sub>](http://www.twitter.com/JanisKra)<br />[📖](https://github.com/kentcdodds/split-guide/commits?author=janis-kra) 🔧 | [<img src="https://avatars.githubusercontent.com/u/5465958?v=3" width="100px;"/><br /><sub>Ray Gesualdo</sub>](https://www.raygesualdo.com)<br />[💻](https://github.com/kentcdodds/split-guide/commits?author=raygesualdo) |
+| :---: | :---: | :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification. Contributions of any kind welcome!

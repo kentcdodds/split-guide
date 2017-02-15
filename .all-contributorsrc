@@ -30,6 +30,16 @@
       ]
     },
     {
+      "login": "janis-kra",
+      "name": "Janis Krasemann",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8240324?v=3",
+      "profile": "http://www.twitter.com/JanisKra",
+      "contributions": [
+        "doc",
+        "tool"
+      ]
+    },
+    {
       "login": "raygesualdo",
       "name": "Ray Gesualdo",
       "avatar_url": "https://avatars.githubusercontent.com/u/5465958?v=3",

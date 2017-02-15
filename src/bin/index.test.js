@@ -15,60 +15,39 @@ const BABEL_BIN_PATH = require.resolve('babel-cli/bin/babel-node')
 
 test('split-guide --help', () => {
   return runSplitGuideCLI('--help').then(stdout => {
-    expect(stdout).toMatchSnapshot()
+    expect(stdout).toMatchSnapshot('split-guide --help stdout')
   })
 })
 
-test('split-guide generate', () => {
-  return runCLIAndAssertFileOutput(
-    'generate',
-    path.resolve(__dirname, '../../test/fixtures/generate'),
-  )
-})
+testCLIOutput('generate', 'generate')
+testCLIOutput('generate --templates-dir guides --exercises-dir app --exercises-final-dir app-finished', 'generate-with-args')
+testCLIOutput('generate --no-clean=true --exercises-dir src --exercises-final-dir src-final', 'generate-no-clean')
+testCLIOutput('generate --ignore "**/*.ignore-me.js"', 'generate-ignore-one')
+testCLIOutput('generate --ignore "**/*.ignore-me.js" "**/*.no-copy.js"', 'generate-ignore-multiple')
+testCLIOutput('generate --silent-success', 'generate-silent-success')
+testCLIOutput('generate --silent-all', 'generate-silent-all')
 
-test('split-guide generate --templates-dir guides --exercises-dir app --exercises-final-dir app-finished', () => {
-  return runCLIAndAssertFileOutput(
-    'generate --templates-dir guides --exercises-dir app --exercises-final-dir app-finished',
-    path.resolve(__dirname, '../../test/fixtures/generate-with-args'),
-  )
-})
-
-test('split-guide generate --no-clean=true --exercises-dir src --exercises-final-dir src-final', () => {
-  return runCLIAndAssertFileOutput(
-    'generate --no-clean=true --exercises-dir src --exercises-final-dir src-final',
-    path.resolve(__dirname, '../../test/fixtures/generate-no-clean'),
-  )
-})
-
-test('split-guide generate --ignore "**/*.ignore-me.js"', () => {
-  return runCLIAndAssertFileOutput(
-    'generate --ignore "**/*.ignore-me.js"',
-    path.resolve(__dirname, '../../test/fixtures/generate-ignore-one'),
-  )
-})
-
-test('split-guide generate --ignore "**/*.ignore-me.js" "**/*.no-copy.js"', () => {
-  return runCLIAndAssertFileOutput(
-    'generate --ignore "**/*.ignore-me.js" "**/*.no-copy.js"',
-    path.resolve(__dirname, '../../test/fixtures/generate-ignore-multiple'),
-  )
-})
-
-function runCLIAndAssertFileOutput(args, cwd) {
-  const {exercisesDir = './exercises', exercisesFinalDir = './exercises-final'} = yargsParser(args)
-  return runSplitGuideCLI(args, cwd).then(stdout => {
-    expect(stdout).toMatchSnapshot()
-    const tree = dirTree(cwd)
-    relativeizePathInTree(tree)
-    expect(tree).toMatchSnapshot()
-    // cannot use Promise.all here because we need to make sure the snapshots are
-    // taken in the correct order
-    return expectDirectoryToMatchSnapshot(path.resolve(cwd, exercisesDir))
-      .then(() => expectDirectoryToMatchSnapshot(path.resolve(cwd, exercisesFinalDir)))
-  }, getErrorLogger('runSplitGuideCLI'))
+function testCLIOutput(args, fixture) {
+  test(`split-guide ${args}`, () => {
+    return runCLIAndAssertFileOutput(args, path.resolve(__dirname, `../../test/fixtures/${fixture}`))
+  })
 }
 
-function expectDirectoryToMatchSnapshot(directory) {
+async function runCLIAndAssertFileOutput(args, cwd) {
+  const {exercisesDir = './exercises', exercisesFinalDir = './exercises-final'} = yargsParser(args)
+  const stdout = await runSplitGuideCLI(args, cwd).catch(getErrorLogger('runSplitGuideCLI'))
+  const snapshotTitleBase = `${args} in ${relativeizePath(cwd)}`
+  expect(relativeizePath(stdout)).toMatchSnapshot(`${snapshotTitleBase} stdout`)
+  const tree = dirTree(cwd)
+  relativeizePathInTree(tree)
+  expect(tree).toMatchSnapshot(`${snapshotTitleBase} file tree`)
+  // cannot use Promise.all here because we need to make sure the snapshots are
+  // taken in the correct order
+  await expectDirectoryToMatchSnapshot(path.resolve(cwd, exercisesDir), `${snapshotTitleBase} exercises-dir`)
+  await expectDirectoryToMatchSnapshot(path.resolve(cwd, exercisesFinalDir), `${snapshotTitleBase} exercises-final-dir`)
+}
+
+function expectDirectoryToMatchSnapshot(directory, snapshotTitle) {
   return pify(glob)(path.resolve(directory, '**/*'), {nodir: true})
     .then(readAllFilesAsPromise)
     .then(expectFilesToMatchSnapshot)
@@ -86,7 +65,7 @@ function expectDirectoryToMatchSnapshot(directory) {
   }
 
   function expectFilesToMatchSnapshot(files) {
-    expect(files).toMatchSnapshot()
+    expect(files).toMatchSnapshot(snapshotTitle)
   }
 }
 
@@ -99,7 +78,7 @@ function runSplitGuideCLI(args = '', cwd = process.cwd()) {
   return new Promise((resolve, reject) => {
     let stdout = ''
     let stderr = ''
-    const command = `${BABEL_BIN_PATH} ${SPLIT_GUIDE_PATH} ${args}`
+    const command = `${BABEL_BIN_PATH} -- ${SPLIT_GUIDE_PATH} ${args}`
     const child = spawn(command, {cwd})
 
     child.on('error', error => {
@@ -124,8 +103,8 @@ function runSplitGuideCLI(args = '', cwd = process.cwd()) {
   })
 }
 
-function relativeizePath(absolutePath) {
-  return absolutePath.replace(path.resolve(__dirname, '../../'), '<projectRootDir>')
+function relativeizePath(stringWithAbsolutePaths) {
+  return stringWithAbsolutePaths.replace(new RegExp(path.resolve(__dirname, '../../'), 'g'), '<projectRootDir>')
 }
 
 function relativeizePathInTree(tree) {
