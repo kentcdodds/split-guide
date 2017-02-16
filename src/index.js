@@ -4,6 +4,7 @@ import glob from 'glob'
 import mkdirp from 'mkdirp'
 import rimraf from 'rimraf'
 import pify from 'pify'
+import pLimit from 'p-limit'
 import {getErrorLogger} from './utils'
 
 const REGEX = {
@@ -11,6 +12,7 @@ const REGEX = {
   workshop: / *?\/\/ WORKSHOP_START.*?\n((.|\n|\r)*?) *\/\/ WORKSHOP_END.*?\n/g,
   comment: / *?\/\/ COMMENT_START.*?\n((.|\n|\r)*?) *\/\/ COMMENT_END.*?\n/g,
 }
+const openFileLimit = pLimit(100)
 
 export default splitGuide
 
@@ -26,7 +28,6 @@ function splitGuide({
     .then(readAllFilesAsPromise)
     .then(createNewFileContents)
     .then(saveFiles)
-    .then(reduceFilenames)
 
   function getFiles() {
     const filesGlob = path.join(templatesDir, '**', '*')
@@ -50,23 +51,10 @@ function splitGuide({
     return pify(fs.readFile)(file, 'utf8')
       .then(contents => ({file, contents}))
   }
-  
-  function promiseChunker(remainingArrayElements, chunkSize) {
-    if (remainingArrayElements.length === 0) return Promise.resolve([])
-    const currentChunk = remainingArrayElements.slice(0, chunkSize)
-    const nextChunk = remainingArrayElements.slice(chunkSize)
-    return Promise.all(currentChunk.map(([func, ...args]) => func(...args)))
-      .then(resultsArray => {
-        return promiseChunker(nextChunk, chunkSize)
-          .then(nextResultsArray => {
-            return Promise.resolve([...resultsArray, ...nextResultsArray])
-          })
-      })
-  }
 
   function readAllFilesAsPromise(files) {
-    const allPromises = files.map(file => [readFileAsPromise, file])
-    return promiseChunker(allPromises, 100)
+    const allPromises = files.map(file => openFileLimit(() => readFileAsPromise(file)))
+    return Promise.all(allPromises)
   }
 
   function createNewFileContents(fileObjs) {
@@ -96,7 +84,7 @@ function splitGuide({
     const allPromises = fileObjs.reduce((all, fileObj) => {
       return [...all, ...saveFinalAndWorkshop(fileObj)]
     }, [])
-    return promiseChunker(allPromises, 100)
+    return Promise.all(allPromises)
   }
 
   function saveFinalAndWorkshop({file, workshopContents, finalContents}) {
@@ -104,15 +92,9 @@ function splitGuide({
     const workshopDestination = path.resolve(exercisesDir, relativeDestination)
     const finalDestination = path.resolve(exercisesFinalDir, relativeDestination)
     return [
-      workshopContents ? [saveFile, workshopDestination, workshopContents] : null,
-      finalContents ? [saveFile, finalDestination, finalContents] : null,
-    ].filter(p => !!p) // filter out the files that weren't saved
-  }
-  
-  function reduceFilenames(filenames) {
-    return filenames.reduce((outputString, currentFilename) => {
-      return `${outputString}${outputString.length > 0 ? '\n' : ''}${currentFilename}`
-    })
+      workshopContents ? openFileLimit(() => saveFile(workshopDestination, workshopContents)) : null,
+      finalContents ? openFileLimit(() => saveFile(finalDestination, finalContents)) : null,
+    ].filter(Boolean) // filter out the files that weren't saved
   }
 
   function saveFile(file, contents) {
