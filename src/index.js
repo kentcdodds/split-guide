@@ -4,6 +4,7 @@ import glob from 'glob'
 import mkdirp from 'mkdirp'
 import rimraf from 'rimraf'
 import pify from 'pify'
+import pLimit from 'p-limit'
 import {getErrorLogger} from './utils'
 
 const REGEX = {
@@ -11,6 +12,7 @@ const REGEX = {
   workshop: / *?\/\/ WORKSHOP_START.*?\n((.|\n|\r)*?) *\/\/ WORKSHOP_END.*?\n/g,
   comment: / *?\/\/ COMMENT_START.*?\n((.|\n|\r)*?) *\/\/ COMMENT_END.*?\n/g,
 }
+const openFileLimit = pLimit(100)
 
 export default splitGuide
 
@@ -51,7 +53,7 @@ function splitGuide({
   }
 
   function readAllFilesAsPromise(files) {
-    const allPromises = files.map(readFileAsPromise)
+    const allPromises = files.map(file => openFileLimit(() => readFileAsPromise(file)))
     return Promise.all(allPromises)
   }
 
@@ -90,8 +92,8 @@ function splitGuide({
     const workshopDestination = path.resolve(exercisesDir, relativeDestination)
     const finalDestination = path.resolve(exercisesFinalDir, relativeDestination)
     return [
-      workshopContents ? saveFile(workshopDestination, workshopContents) : null,
-      finalContents ? saveFile(finalDestination, finalContents) : null,
+      workshopContents ? openFileLimit(() => saveFile(workshopDestination, workshopContents)) : null,
+      finalContents ? openFileLimit(() => saveFile(finalDestination, finalContents)) : null,
     ].filter(Boolean) // filter out the files that weren't saved
   }
 
