@@ -5,6 +5,7 @@ import pify from 'pify'
 import glob from 'glob'
 import dirTree from 'directory-tree'
 import yargsParser from 'yargs-parser'
+import {oneLine} from 'common-tags'
 import {getErrorLogger} from '../utils'
 
 // this is a bit of a long running test...
@@ -20,31 +21,66 @@ test('split-guide --help', () => {
 })
 
 testCLIOutput('generate', 'generate')
-testCLIOutput('generate --templates-dir guides --exercises-dir app --exercises-final-dir app-finished', 'generate-with-args')
-testCLIOutput('generate --no-clean=true --exercises-dir src --exercises-final-dir src-final', 'generate-no-clean')
+testCLIOutput(
+  oneLine`
+    generate
+    --templates-dir guides
+    --exercises-dir app --exercises-final-dir
+    app-finished
+  `,
+  'generate-with-args',
+)
+testCLIOutput(
+  oneLine`
+    generate
+    --no-clean
+    --exercises-dir src
+    --exercises-final-dir src-final
+  `,
+  'generate-no-clean',
+)
 testCLIOutput('generate --ignore "**/*.ignore-me.js"', 'generate-ignore-one')
-testCLIOutput('generate --ignore "**/*.ignore-me.js" "**/*.no-copy.js"', 'generate-ignore-multiple')
+testCLIOutput(
+  'generate --ignore "**/*.ignore-me.js" "**/*.no-copy.js"',
+  'generate-ignore-multiple',
+)
 testCLIOutput('generate --silent-success', 'generate-silent-success')
 testCLIOutput('generate --silent-all', 'generate-silent-all')
 
 function testCLIOutput(args, fixture) {
   test(`split-guide ${args}`, () => {
-    return runCLIAndAssertFileOutput(args, path.resolve(__dirname, `../../test/fixtures/${fixture}`))
+    return runCLIAndAssertFileOutput(
+      args,
+      path.resolve(__dirname, `../../test/fixtures/${fixture}`),
+    )
   })
 }
 
 async function runCLIAndAssertFileOutput(args, cwd) {
-  const {exercisesDir = './exercises', exercisesFinalDir = './exercises-final'} = yargsParser(args)
-  const stdout = await runSplitGuideCLI(args, cwd).catch(getErrorLogger('runSplitGuideCLI'))
+  const {
+    exercisesDir = './exercises',
+    exercisesFinalDir = './exercises-final',
+  } = yargsParser(args)
+  const stdout = await runSplitGuideCLI(args, cwd).catch(
+    getErrorLogger('runSplitGuideCLI'),
+  )
   const snapshotTitleBase = `${args} in ${relativeizePath(cwd)}`
-  expect(relativeizePath(stdout)).toMatchSnapshot(`${snapshotTitleBase} stdout`)
+  expect(relativeizePath(stdout)).toMatchSnapshot(
+    `${snapshotTitleBase} stdout`,
+  )
   const tree = dirTree(cwd)
   relativeizePathInTree(tree)
   expect(tree).toMatchSnapshot(`${snapshotTitleBase} file tree`)
   // cannot use Promise.all here because we need to make sure the snapshots are
   // taken in the correct order
-  await expectDirectoryToMatchSnapshot(path.resolve(cwd, exercisesDir), `${snapshotTitleBase} exercises-dir`)
-  await expectDirectoryToMatchSnapshot(path.resolve(cwd, exercisesFinalDir), `${snapshotTitleBase} exercises-final-dir`)
+  await expectDirectoryToMatchSnapshot(
+    path.resolve(cwd, exercisesDir),
+    `${snapshotTitleBase} exercises-dir`,
+  )
+  await expectDirectoryToMatchSnapshot(
+    path.resolve(cwd, exercisesFinalDir),
+    `${snapshotTitleBase} exercises-final-dir`,
+  )
 }
 
 function expectDirectoryToMatchSnapshot(directory, snapshotTitle) {
@@ -104,7 +140,10 @@ function runSplitGuideCLI(args = '', cwd = process.cwd()) {
 }
 
 function relativeizePath(stringWithAbsolutePaths) {
-  return stringWithAbsolutePaths.replace(new RegExp(path.resolve(__dirname, '../../'), 'g'), '<projectRootDir>')
+  return stringWithAbsolutePaths.replace(
+    new RegExp(path.resolve(__dirname, '../../'), 'g'),
+    '<projectRootDir>',
+  )
 }
 
 function relativeizePathInTree(tree) {

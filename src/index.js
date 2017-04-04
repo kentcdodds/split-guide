@@ -16,13 +16,15 @@ const openFileLimit = pLimit(100)
 
 export default splitGuide
 
-function splitGuide({
-  templatesDir,
-  exercisesDir,
-  exercisesFinalDir,
-  noClean,
-  ignore,
-} = {}) {
+function splitGuide(
+  {
+    templatesDir,
+    exercisesDir,
+    exercisesFinalDir,
+    clean,
+    ignore,
+  } = {},
+) {
   return deletePreviouslyGeneratedFiles()
     .then(getFiles)
     .then(readAllFilesAsPromise)
@@ -36,7 +38,7 @@ function splitGuide({
   }
 
   function deletePreviouslyGeneratedFiles() {
-    if (noClean) {
+    if (!clean) {
       return Promise.resolve()
     }
     const pRimraf = pify(rimraf)
@@ -48,58 +50,74 @@ function splitGuide({
   }
 
   function readFileAsPromise(file) {
-    return pify(fs.readFile)(file, 'utf8')
-      .then(contents => ({file, contents}))
+    return pify(fs.readFile)(file, 'utf8').then(contents => ({file, contents}))
   }
 
   function readAllFilesAsPromise(files) {
-    const allPromises = files.map(file => openFileLimit(() => readFileAsPromise(file)))
+    const allPromises = files.map(file =>
+      openFileLimit(() => readFileAsPromise(file)))
     return Promise.all(allPromises)
   }
 
   function createNewFileContents(fileObjs) {
     return fileObjs.map(fileObj => {
-      return Object.assign({
-        finalContents: createFinalContents(fileObj.contents),
-        workshopContents: createWorkshopContents(fileObj.contents),
-      }, fileObj)
+      return Object.assign(
+        {
+          finalContents: createFinalContents(fileObj.contents),
+          workshopContents: createWorkshopContents(fileObj.contents),
+        },
+        fileObj,
+      )
     })
   }
 
   function createFinalContents(contents) {
     return contents
-    .replace(REGEX.final, '$1')
-    .replace(REGEX.workshop, '')
-    .replace(REGEX.comment, '')
+      .replace(REGEX.final, '$1')
+      .replace(REGEX.workshop, '')
+      .replace(REGEX.comment, '')
   }
 
   function createWorkshopContents(contents) {
     return contents
-    .replace(REGEX.workshop, '$1')
-    .replace(REGEX.final, '')
-    .replace(REGEX.comment, '')
+      .replace(REGEX.workshop, '$1')
+      .replace(REGEX.final, '')
+      .replace(REGEX.comment, '')
   }
 
   function saveFiles(fileObjs) {
-    const allPromises = fileObjs.reduce((all, fileObj) => {
-      return [...all, ...saveFinalAndWorkshop(fileObj)]
-    }, [])
+    const allPromises = fileObjs.reduce(
+      (all, fileObj) => {
+        return [...all, ...saveFinalAndWorkshop(fileObj)]
+      },
+      [],
+    )
     return Promise.all(allPromises)
   }
 
   function saveFinalAndWorkshop({file, workshopContents, finalContents}) {
     const relativeDestination = path.relative(templatesDir, file)
     const workshopDestination = path.resolve(exercisesDir, relativeDestination)
-    const finalDestination = path.resolve(exercisesFinalDir, relativeDestination)
+    const finalDestination = path.resolve(
+      exercisesFinalDir,
+      relativeDestination,
+    )
     return [
-      workshopContents ? openFileLimit(() => saveFile(workshopDestination, workshopContents)) : null,
-      finalContents ? openFileLimit(() => saveFile(finalDestination, finalContents)) : null,
+      workshopContents ?
+        openFileLimit(() => saveFile(workshopDestination, workshopContents)) :
+        null,
+      finalContents ?
+        openFileLimit(() => saveFile(finalDestination, finalContents)) :
+        null,
     ].filter(Boolean) // filter out the files that weren't saved
   }
 
   function saveFile(file, contents) {
-    return pify(mkdirp)(path.dirname(file), {}).then(() => {
-      return pify(fs.writeFile)(file, contents).then(() => file)
-    }, getErrorLogger(`mkdirp(${path.dirname(file)})`))
+    return pify(mkdirp)(path.dirname(file), {}).then(
+      () => {
+        return pify(fs.writeFile)(file, contents).then(() => file)
+      },
+      getErrorLogger(`mkdirp(${path.dirname(file)})`),
+    )
   }
 }

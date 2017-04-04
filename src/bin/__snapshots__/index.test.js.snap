@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`generate --ignore "**/*.ignore-me.js" "**/*.no-copy.js" in <projectRootDir>/test/fixtures/generate-ignore-multiple exercises-dir 1`] = `
 Array [
   Object {
@@ -174,11 +176,11 @@ exports[`generate --ignore "**/*.ignore-me.js" in <projectRootDir>/test/fixtures
 <projectRootDir>/test/fixtures/generate-ignore-one/exercises-final/README.md"
 `;
 
-exports[`generate --no-clean=true --exercises-dir src --exercises-final-dir src-final in <projectRootDir>/test/fixtures/generate-no-clean exercises-dir 1`] = `
+exports[`generate --no-clean --exercises-dir src --exercises-final-dir src-final in <projectRootDir>/test/fixtures/generate-no-clean exercises-dir 1`] = `
 Array [
   Object {
     "contents": "// this will not get deleted!
-// isn\'t that cool!? 😎
+// isn't that cool!? 😎
 ",
     "file": "<projectRootDir>/test/fixtures/generate-no-clean/src/persist.js",
   },
@@ -192,25 +194,25 @@ This allows you to generate your stuff into an existing file.
 ]
 `;
 
-exports[`generate --no-clean=true --exercises-dir src --exercises-final-dir src-final in <projectRootDir>/test/fixtures/generate-no-clean exercises-final-dir 1`] = `
+exports[`generate --no-clean --exercises-dir src --exercises-final-dir src-final in <projectRootDir>/test/fixtures/generate-no-clean exercises-final-dir 1`] = `
 Array [
   Object {
     "contents": "// this will not get deleted either!
-// isn\'t that cool!? 😎
+// isn't that cool!? 😎
 ",
     "file": "<projectRootDir>/test/fixtures/generate-no-clean/src-final/persist.js",
   },
   Object {
     "contents": "## --no-clean
 
-Just don\'t forget to delete old files!
+Just don't forget to delete old files!
 ",
     "file": "<projectRootDir>/test/fixtures/generate-no-clean/src-final/README.md",
   },
 ]
 `;
 
-exports[`generate --no-clean=true --exercises-dir src --exercises-final-dir src-final in <projectRootDir>/test/fixtures/generate-no-clean file tree 1`] = `
+exports[`generate --no-clean --exercises-dir src --exercises-final-dir src-final in <projectRootDir>/test/fixtures/generate-no-clean file tree 1`] = `
 Object {
   "children": Array [
     Object {
@@ -271,7 +273,7 @@ Object {
 }
 `;
 
-exports[`generate --no-clean=true --exercises-dir src --exercises-final-dir src-final in <projectRootDir>/test/fixtures/generate-no-clean stdout 1`] = `
+exports[`generate --no-clean --exercises-dir src --exercises-final-dir src-final in <projectRootDir>/test/fixtures/generate-no-clean stdout 1`] = `
 "Saved 2 files:
 <projectRootDir>/test/fixtures/generate-no-clean/src/README.md
 <projectRootDir>/test/fixtures/generate-no-clean/src-final/README.md"
@@ -796,7 +798,7 @@ Commands:
   generate  generate your split-guide
 
 Options:
-  -h, --help  Show help  [boolean]
+  -h, --help  Show help                                                [boolean]
 
 "
 `;
