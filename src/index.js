@@ -33,7 +33,7 @@ function splitGuide(
 
   function getFiles() {
     const filesGlob = path.join(templatesDir, '**', '*')
-    const globOptions = {nodir: true, ignore}
+    const globOptions = {nodir: true, ignore, dot: true}
     return pify(glob)(filesGlob, globOptions)
   }
 
