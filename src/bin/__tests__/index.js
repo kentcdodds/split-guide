@@ -1,15 +1,15 @@
 import path from 'path'
 import fs from 'fs'
-import spawn from 'spawn-command'
+import spawn from 'cross-spawn'
 import pify from 'pify'
 import glob from 'glob'
 import dirTree from 'directory-tree'
 import yargsParser from 'yargs-parser'
 import {oneLine} from 'common-tags'
-import {getErrorLogger} from '../utils'
+import {getErrorLogger} from '../../utils'
 
 // this is a bit of a long running test...
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000 // eslint-disable-line no-undef
+// jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000 // eslint-disable-line no-undef
 
 const SPLIT_GUIDE_PATH = require.resolve('./index')
 const BABEL_BIN_PATH = require.resolve('babel-cli/bin/babel-node')
@@ -114,8 +114,8 @@ function runSplitGuideCLI(args = '', cwd = process.cwd()) {
   return new Promise((resolve, reject) => {
     let stdout = ''
     let stderr = ''
-    const command = `${BABEL_BIN_PATH} -- ${SPLIT_GUIDE_PATH} ${args}`
-    const child = spawn(command, {cwd})
+    console.log(BABEL_BIN_PATH, ['--', SPLIT_GUIDE_PATH, args], {cwd})
+    const child = spawn(BABEL_BIN_PATH, ['--', SPLIT_GUIDE_PATH, args], {cwd})
 
     child.on('error', error => {
       reject(error)

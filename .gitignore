@@ -1,12 +1,17 @@
 node_modules
-.nyc_output
 coverage
 dist
 .opt-in
 .opt-out
+.DS_Store
 test/fixtures/*/exercises
 test/fixtures/*/exercises-final
 test/fixtures/*/app
 test/fixtures/*/app-finished
 test/fixtures/generate-no-clean/src/README.md
 test/fixtures/generate-no-clean/src-final/README.md
+
+# these cause more harm than good
+# when working with contributors
+package-lock.json
+yarn.lock
