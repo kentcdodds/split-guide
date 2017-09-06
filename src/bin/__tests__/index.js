@@ -6,12 +6,10 @@ import glob from 'glob'
 import dirTree from 'directory-tree'
 import yargsParser from 'yargs-parser'
 import {oneLine} from 'common-tags'
-import {getErrorLogger} from '../utils'
+import stripAnsi from 'strip-ansi'
+import {getErrorLogger} from '../../utils'
 
-// this is a bit of a long running test...
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000 // eslint-disable-line no-undef
-
-const SPLIT_GUIDE_PATH = require.resolve('./index')
+const SPLIT_GUIDE_PATH = require.resolve('../index')
 const BABEL_BIN_PATH = require.resolve('babel-cli/bin/babel-node')
 
 test('split-guide --help', () => {
@@ -51,7 +49,7 @@ function testCLIOutput(args, fixture) {
   test(`split-guide ${args}`, () => {
     return runCLIAndAssertFileOutput(
       args,
-      path.resolve(__dirname, `../../test/fixtures/${fixture}`),
+      path.resolve(__dirname, `../../../test/fixtures/${fixture}`),
     )
   })
 }
@@ -65,9 +63,7 @@ async function runCLIAndAssertFileOutput(args, cwd) {
     getErrorLogger('runSplitGuideCLI'),
   )
   const snapshotTitleBase = `${args} in ${relativeizePath(cwd)}`
-  expect(relativeizePath(stdout)).toMatchSnapshot(
-    `${snapshotTitleBase} stdout`,
-  )
+  expect(relativeizePath(stdout)).toMatchSnapshot(`${snapshotTitleBase} stdout`)
   const tree = dirTree(cwd)
   relativeizePathInTree(tree)
   expect(tree).toMatchSnapshot(`${snapshotTitleBase} file tree`)
@@ -122,11 +118,11 @@ function runSplitGuideCLI(args = '', cwd = process.cwd()) {
     })
 
     child.stdout.on('data', data => {
-      stdout += data.toString()
+      stdout += stripAnsi(data.toString())
     })
 
     child.stderr.on('data', data => {
-      stderr += data.toString()
+      stderr += stripAnsi(data.toString())
     })
 
     child.on('close', () => {
@@ -141,7 +137,7 @@ function runSplitGuideCLI(args = '', cwd = process.cwd()) {
 
 function relativeizePath(stringWithAbsolutePaths) {
   return stringWithAbsolutePaths.replace(
-    new RegExp(path.resolve(__dirname, '../../'), 'g'),
+    new RegExp(path.resolve(__dirname, '../../../'), 'g'),
     '<projectRootDir>',
   )
 }

@@ -10,43 +10,43 @@ yargs
   .command(
     'generate',
     'generate your split-guide',
-  {
-    templatesDir: {
-      description: 'The directory where your templates are',
-      default: inCwd('./templates'),
-      coerce: coerceToCwd,
-    },
-    exercisesDir: {
-      description: 'Where you want the exercises split to go',
-      default: inCwd('./exercises'),
-      coerce: coerceToCwd,
-    },
-    exercisesFinalDir: {
-      description: 'Where you want the final split to go',
-      default: inCwd('./exercises-final'),
-      coerce: coerceToCwd,
-    },
-    clean: {
-      description: oneLine`
+    {
+      templatesDir: {
+        description: 'The directory where your templates are',
+        default: inCwd('./templates'),
+        coerce: coerceToCwd,
+      },
+      exercisesDir: {
+        description: 'Where you want the exercises split to go',
+        default: inCwd('./exercises'),
+        coerce: coerceToCwd,
+      },
+      exercisesFinalDir: {
+        description: 'Where you want the final split to go',
+        default: inCwd('./exercises-final'),
+        coerce: coerceToCwd,
+      },
+      clean: {
+        description: oneLine`
         Deletes the exercises and
         exercises-final to keep your space clean
       `,
-      default: true,
-      type: 'boolean',
+        default: true,
+        type: 'boolean',
+      },
+      ignore: {
+        description: 'Globs you would like to ignore',
+        type: 'array',
+      },
+      silentSuccess: {
+        description: 'Whether to log success',
+        type: 'boolean',
+      },
+      silentAll: {
+        description: 'Whether to log at all',
+        type: 'boolean',
+      },
     },
-    ignore: {
-      description: 'Globs you would like to ignore',
-      type: 'array',
-    },
-    silentSuccess: {
-      description: 'Whether to log success',
-      type: 'boolean',
-    },
-    silentAll: {
-      description: 'Whether to log at all',
-      type: 'boolean',
-    },
-  },
     generate,
   )
   .help('h')
@@ -61,7 +61,7 @@ function generate(options) {
         const colon = `${count === 0 ? '' : ':'}`
         process.stdout.write(
           `
-${chalk.green(`Saved ${count} ${files}${colon}`)}
+${chalk.reset.green(`Saved ${count} ${files}${colon}`)}
 ${savedFiles.join('\n')}
           `.trim(),
         )

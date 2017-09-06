@@ -4,22 +4,23 @@
   "description": "A tool to help generate code for workshop repositories",
   "main": "dist/index.js",
   "scripts": {
-    "start": "nps",
-    "test": "nps test",
-    "commitmsg": "opt --in commit-msg --exec \"validate-commit-msg\"",
-    "precommit": "lint-staged && opt --in pre-commit --exec \"npm start validate\""
+    "add-contributor": "kcd-scripts contributors add",
+    "build": "kcd-scripts build",
+    "lint": "kcd-scripts lint",
+    "test": "kcd-scripts test --coverageThreshold \"{\\\"global\\\": {}}\"",
+    "test:update": "npm test -- --updateSnapshot --coverage",
+    "validate": "kcd-scripts validate",
+    "precommit": "kcd-scripts precommit"
   },
   "bin": {
     "split-guide": "dist/bin/index.js"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "keywords": [],
   "author": "Kent C. Dodds <kent@doddsfamily.us> (http://kentcdodds.com/)",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^1.1.3",
+    "chalk": "^2.1.0",
     "common-tags": "^1.4.0",
     "glob": "^7.0.6",
     "mkdirp": "^0.5.1",
@@ -29,60 +30,21 @@
     "yargs": "^7.0.2"
   },
   "devDependencies": {
-    "all-contributors-cli": "^4.0.1",
-    "babel-cli": "^6.14.0",
-    "babel-eslint": "^7.2.1",
-    "babel-jest": "^19.0.0",
-    "babel-plugin-transform-runtime": "^6.15.0",
-    "babel-polyfill": "^6.13.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-es2016": "^6.16.0",
-    "babel-preset-es2017": "^6.16.0",
-    "babel-preset-stage-2": "^6.18.0",
-    "codecov": "^2.1.0",
-    "commitizen": "^2.8.6",
-    "cz-conventional-changelog": "^2.0.0",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "directory-tree": "^1.1.0",
-    "eslint": "^3.19.0",
-    "eslint-config-kentcdodds": "^12.2.1",
-    "eslint-plugin-babel": "^4.1.1",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jest": "^19.0.1",
-    "husky": "^0.13.3",
-    "jest-cli": "^19.0.2",
-    "lint-staged": "^3.4.0",
-    "nps": "^5.0.5",
-    "nps-utils": "^1.2.0",
-    "opt-cli": "^1.5.1",
-    "prettier-eslint-cli": "^3.2.0",
-    "semantic-release": "^6.3.2",
-    "spawn-command": "^0.0.2",
-    "validate-commit-msg": "^2.8.0",
+    "kcd-scripts": "^0.2.3",
+    "spawn-command": "0.0.2",
+    "strip-ansi": "^4.0.0",
     "yargs-parser": "^5.0.0"
   },
   "eslintConfig": {
-    "extends": [
-      "kentcdodds",
-      "kentcdodds/jest",
-      "kentcdodds/prettier"
-    ]
+    "extends": "./node_modules/kcd-scripts/eslint.js"
   },
-  "lint-staged": {
-    "*.js": [
-      "prettier-eslint --write",
-      "git add"
-    ]
-  },
-  "jest": {
-    "testEnvironment": "jest-environment-node",
-    "roots": [
-      "src"
-    ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
-    }
+  "eslintIgnore": ["node_modules", "coverage", "dist"],
+  "babel": {
+    "presets": "kcd-scripts/babel",
+    "plugins": ["transform-runtime"]
   },
   "repository": {
     "type": "git",

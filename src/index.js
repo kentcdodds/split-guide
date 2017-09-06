@@ -17,13 +17,7 @@ const openFileLimit = pLimit(100)
 export default splitGuide
 
 function splitGuide(
-  {
-    templatesDir,
-    exercisesDir,
-    exercisesFinalDir,
-    clean,
-    ignore,
-  } = {},
+  {templatesDir, exercisesDir, exercisesFinalDir, clean, ignore} = {},
 ) {
   return deletePreviouslyGeneratedFiles()
     .then(getFiles)
@@ -55,7 +49,8 @@ function splitGuide(
 
   function readAllFilesAsPromise(files) {
     const allPromises = files.map(file =>
-      openFileLimit(() => readFileAsPromise(file)))
+      openFileLimit(() => readFileAsPromise(file)),
+    )
     return Promise.all(allPromises)
   }
 
@@ -86,12 +81,9 @@ function splitGuide(
   }
 
   function saveFiles(fileObjs) {
-    const allPromises = fileObjs.reduce(
-      (all, fileObj) => {
-        return [...all, ...saveFinalAndWorkshop(fileObj)]
-      },
-      [],
-    )
+    const allPromises = fileObjs.reduce((all, fileObj) => {
+      return [...all, ...saveFinalAndWorkshop(fileObj)]
+    }, [])
     return Promise.all(allPromises)
   }
 
@@ -103,21 +95,18 @@ function splitGuide(
       relativeDestination,
     )
     return [
-      workshopContents ?
-        openFileLimit(() => saveFile(workshopDestination, workshopContents)) :
-        null,
-      finalContents ?
-        openFileLimit(() => saveFile(finalDestination, finalContents)) :
-        null,
+      workshopContents
+        ? openFileLimit(() => saveFile(workshopDestination, workshopContents))
+        : null,
+      finalContents
+        ? openFileLimit(() => saveFile(finalDestination, finalContents))
+        : null,
     ].filter(Boolean) // filter out the files that weren't saved
   }
 
   function saveFile(file, contents) {
-    return pify(mkdirp)(path.dirname(file), {}).then(
-      () => {
-        return pify(fs.writeFile)(file, contents).then(() => file)
-      },
-      getErrorLogger(`mkdirp(${path.dirname(file)})`),
-    )
+    return pify(mkdirp)(path.dirname(file), {}).then(() => {
+      return pify(fs.writeFile)(file, contents).then(() => file)
+    }, getErrorLogger(`mkdirp(${path.dirname(file)})`))
   }
 }
