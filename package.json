@@ -7,17 +7,15 @@
     "add-contributor": "kcd-scripts contributors add",
     "build": "kcd-scripts build",
     "lint": "kcd-scripts lint",
-    "test": "kcd-scripts test",
-    "test:update": "kcd-scripts test --updateSnapshot",
+    "test": "kcd-scripts test --coverageThreshold \"{\\\"global\\\": {}}\"",
+    "test:update": "npm test -- --updateSnapshot --coverage",
     "validate": "kcd-scripts validate",
     "precommit": "kcd-scripts precommit"
   },
   "bin": {
     "split-guide": "dist/bin/index.js"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "keywords": [],
   "author": "Kent C. Dodds <kent@doddsfamily.us> (http://kentcdodds.com/)",
   "license": "MIT",
@@ -34,25 +32,19 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
-    "cross-spawn": "^5.1.0",
     "directory-tree": "^1.1.0",
     "kcd-scripts": "^0.2.3",
-    "spawn-command": "^0.0.2",
+    "spawn-command": "0.0.2",
+    "strip-ansi": "^4.0.0",
     "yargs-parser": "^5.0.0"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js"
   },
-  "eslintIgnore": [
-    "node_modules",
-    "coverage",
-    "dist"
-  ],
+  "eslintIgnore": ["node_modules", "coverage", "dist"],
   "babel": {
     "presets": "kcd-scripts/babel",
-    "plugins": [
-      "transform-runtime"
-    ]
+    "plugins": ["transform-runtime"]
   },
   "repository": {
     "type": "git",
