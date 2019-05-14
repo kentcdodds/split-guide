@@ -7,8 +7,11 @@ import pify from 'pify'
 import pLimit from 'p-limit'
 import {getErrorLogger} from './utils'
 
-const CommentStartTpl = `\/\/ `
-const CommentEndTpl = `.*?\n`
+// We need to escape \ when used with constructor
+// See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
+const CommentStartTpl = '(?:\\/\\/\\s|\\/\\*\\s?)'
+const CommentEndTpl = '.*?\\n'
+
 const getRegEx = entity =>
   ` *?${CommentStartTpl}${entity}_START${CommentEndTpl}((.|\n|\r)*?) *${CommentStartTpl}${entity}_END${CommentEndTpl}`
 

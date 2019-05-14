@@ -1,0 +1,12 @@
+/* COMMENT_START */
+/*this is the top of the CSS file, and it has comments*/
+/* COMMENT_END */
+body {
+  /*WORKSHOP_START*/
+  /* Normal CSS Comment */
+  font-family: sans-serif;
+  /*WORKSHOP_END*/
+  /*FINAL_START*/
+  font-family: Arial, sans-serif;
+  /*FINAL_END*/
+}

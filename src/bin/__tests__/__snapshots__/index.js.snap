@@ -623,6 +623,14 @@ This is common stuff
     "file": "<projectRootDir>/test/fixtures/generate/exercises/foo/bar/README.md",
   },
   Object {
+    "contents": "body {
+    /* Normal CSS Comment */
+    font-family: sans-serif;
+}
+",
+    "file": "<projectRootDir>/test/fixtures/generate/exercises/root.css",
+  },
+  Object {
     "contents": "/* eslint-disable */
 module.exports = function sum(a, b) {
   // return the sum of a and b
@@ -649,6 +657,13 @@ This is final stuff
 because the result is an empty string for the exercises directory
 ",
     "file": "<projectRootDir>/test/fixtures/generate/exercises-final/foo/final-only.md",
+  },
+  Object {
+    "contents": "body {
+    font-family: Arial, sans-serif;
+}
+",
+    "file": "<projectRootDir>/test/fixtures/generate/exercises-final/root.css",
   },
   Object {
     "contents": "/* eslint-disable */
@@ -687,6 +702,12 @@ Object {
           "size": 65,
         },
         Object {
+          "extension": ".css",
+          "name": "root.css",
+          "path": "<projectRootDir>/test/fixtures/generate/exercises/root.css",
+          "size": 67,
+        },
+        Object {
           "extension": ".js",
           "name": "root.js",
           "path": "<projectRootDir>/test/fixtures/generate/exercises/root.js",
@@ -695,7 +716,7 @@ Object {
       ],
       "name": "exercises",
       "path": "<projectRootDir>/test/fixtures/generate/exercises",
-      "size": 157,
+      "size": 224,
     },
     Object {
       "children": Array [
@@ -726,6 +747,12 @@ Object {
           "size": 170,
         },
         Object {
+          "extension": ".css",
+          "name": "root.css",
+          "path": "<projectRootDir>/test/fixtures/generate/exercises-final/root.css",
+          "size": 45,
+        },
+        Object {
           "extension": ".js",
           "name": "root.js",
           "path": "<projectRootDir>/test/fixtures/generate/exercises-final/root.js",
@@ -734,7 +761,7 @@ Object {
       ],
       "name": "exercises-final",
       "path": "<projectRootDir>/test/fixtures/generate/exercises-final",
-      "size": 246,
+      "size": 291,
     },
     Object {
       "children": Array [
@@ -765,6 +792,12 @@ Object {
           "size": 524,
         },
         Object {
+          "extension": ".css",
+          "name": "root.css",
+          "path": "<projectRootDir>/test/fixtures/generate/templates/root.css",
+          "size": 280,
+        },
+        Object {
           "extension": ".js",
           "name": "root.js",
           "path": "<projectRootDir>/test/fixtures/generate/templates/root.js",
@@ -773,20 +806,22 @@ Object {
       ],
       "name": "templates",
       "path": "<projectRootDir>/test/fixtures/generate/templates",
-      "size": 785,
+      "size": 1065,
     },
   ],
   "name": "generate",
   "path": "<projectRootDir>/test/fixtures/generate",
-  "size": 1188,
+  "size": 1580,
 }
 `;
 
 exports[`generate in <projectRootDir>/test/fixtures/generate stdout 1`] = `
-"Saved 5 files:
+"Saved 7 files:
 <projectRootDir>/test/fixtures/generate/exercises/foo/bar/README.md
 <projectRootDir>/test/fixtures/generate/exercises-final/foo/bar/README.md
 <projectRootDir>/test/fixtures/generate/exercises-final/foo/final-only.md
+<projectRootDir>/test/fixtures/generate/exercises/root.css
+<projectRootDir>/test/fixtures/generate/exercises-final/root.css
 <projectRootDir>/test/fixtures/generate/exercises/root.js
 <projectRootDir>/test/fixtures/generate/exercises-final/root.js"
 `;
