@@ -7,18 +7,30 @@ import pify from 'pify'
 import pLimit from 'p-limit'
 import {getErrorLogger} from './utils'
 
+// We need to escape \ when used with constructor
+// See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
+const CommentStartTpl = '(?:\\/\\/\\s|\\/\\*\\s?|<!--\\s?)'
+const CommentEndTpl = '.*?\\n'
+
+const getRegEx = entity =>
+  ` *?${CommentStartTpl}${entity}_START${CommentEndTpl}((.|\n|\r)*?) *${CommentStartTpl}${entity}_END${CommentEndTpl}`
+
 const REGEX = {
-  final: / *?\/\/ FINAL_START.*?\n((.|\n|\r)*?) *\/\/ FINAL_END.*?\n/g,
-  workshop: / *?\/\/ WORKSHOP_START.*?\n((.|\n|\r)*?) *\/\/ WORKSHOP_END.*?\n/g,
-  comment: / *?\/\/ COMMENT_START.*?\n((.|\n|\r)*?) *\/\/ COMMENT_END.*?\n/g,
+  final: new RegExp(getRegEx('FINAL'), 'g'),
+  workshop: new RegExp(getRegEx('WORKSHOP'), 'g'),
+  comment: new RegExp(getRegEx('COMMENT'), 'g'),
 }
 const openFileLimit = pLimit(100)
 
 export default splitGuide
 
-function splitGuide(
-  {templatesDir, exercisesDir, exercisesFinalDir, clean, ignore} = {},
-) {
+function splitGuide({
+  templatesDir,
+  exercisesDir,
+  exercisesFinalDir,
+  clean,
+  ignore,
+} = {}) {
   return deletePreviouslyGeneratedFiles()
     .then(getFiles)
     .then(readAllFilesAsPromise)
