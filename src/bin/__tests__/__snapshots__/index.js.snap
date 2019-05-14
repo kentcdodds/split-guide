@@ -623,9 +623,26 @@ This is common stuff
     "file": "<projectRootDir>/test/fixtures/generate/exercises/foo/bar/README.md",
   },
   Object {
+    "contents": "<!DOCTYPE html>
+<html lang=\\"en\\">
+<head>
+    <meta charset=\\"UTF-8\\">
+    <title>Test</title>
+</head>
+<body>
+    <h1>Workshop</h1>
+
+
+    <p>Everywhere</p>
+</body>
+</html>
+",
+    "file": "<projectRootDir>/test/fixtures/generate/exercises/index.html",
+  },
+  Object {
     "contents": "body {
-    /* Normal CSS Comment */
-    font-family: sans-serif;
+  /* Normal CSS Comment */
+  font-family: sans-serif;
 }
 ",
     "file": "<projectRootDir>/test/fixtures/generate/exercises/root.css",
@@ -659,8 +676,25 @@ because the result is an empty string for the exercises directory
     "file": "<projectRootDir>/test/fixtures/generate/exercises-final/foo/final-only.md",
   },
   Object {
+    "contents": "<!DOCTYPE html>
+<html lang=\\"en\\">
+<head>
+    <meta charset=\\"UTF-8\\">
+    <title>Test</title>
+</head>
+<body>
+
+    <h1>Final</h1>
+
+    <p>Everywhere</p>
+</body>
+</html>
+",
+    "file": "<projectRootDir>/test/fixtures/generate/exercises-final/index.html",
+  },
+  Object {
     "contents": "body {
-    font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif;
 }
 ",
     "file": "<projectRootDir>/test/fixtures/generate/exercises-final/root.css",
@@ -702,10 +736,16 @@ Object {
           "size": 65,
         },
         Object {
+          "extension": ".html",
+          "name": "index.html",
+          "path": "<projectRootDir>/test/fixtures/generate/exercises/index.html",
+          "size": 168,
+        },
+        Object {
           "extension": ".css",
           "name": "root.css",
           "path": "<projectRootDir>/test/fixtures/generate/exercises/root.css",
-          "size": 67,
+          "size": 63,
         },
         Object {
           "extension": ".js",
@@ -716,7 +756,7 @@ Object {
       ],
       "name": "exercises",
       "path": "<projectRootDir>/test/fixtures/generate/exercises",
-      "size": 224,
+      "size": 388,
     },
     Object {
       "children": Array [
@@ -747,10 +787,16 @@ Object {
           "size": 170,
         },
         Object {
+          "extension": ".html",
+          "name": "index.html",
+          "path": "<projectRootDir>/test/fixtures/generate/exercises-final/index.html",
+          "size": 165,
+        },
+        Object {
           "extension": ".css",
           "name": "root.css",
           "path": "<projectRootDir>/test/fixtures/generate/exercises-final/root.css",
-          "size": 45,
+          "size": 43,
         },
         Object {
           "extension": ".js",
@@ -761,7 +807,7 @@ Object {
       ],
       "name": "exercises-final",
       "path": "<projectRootDir>/test/fixtures/generate/exercises-final",
-      "size": 291,
+      "size": 454,
     },
     Object {
       "children": Array [
@@ -792,10 +838,16 @@ Object {
           "size": 524,
         },
         Object {
+          "extension": ".html",
+          "name": "index.html",
+          "path": "<projectRootDir>/test/fixtures/generate/templates/index.html",
+          "size": 336,
+        },
+        Object {
           "extension": ".css",
           "name": "root.css",
           "path": "<projectRootDir>/test/fixtures/generate/templates/root.css",
-          "size": 280,
+          "size": 266,
         },
         Object {
           "extension": ".js",
@@ -806,20 +858,22 @@ Object {
       ],
       "name": "templates",
       "path": "<projectRootDir>/test/fixtures/generate/templates",
-      "size": 1065,
+      "size": 1387,
     },
   ],
   "name": "generate",
   "path": "<projectRootDir>/test/fixtures/generate",
-  "size": 1580,
+  "size": 2229,
 }
 `;
 
 exports[`generate in <projectRootDir>/test/fixtures/generate stdout 1`] = `
-"Saved 7 files:
+"Saved 9 files:
 <projectRootDir>/test/fixtures/generate/exercises/foo/bar/README.md
 <projectRootDir>/test/fixtures/generate/exercises-final/foo/bar/README.md
 <projectRootDir>/test/fixtures/generate/exercises-final/foo/final-only.md
+<projectRootDir>/test/fixtures/generate/exercises/index.html
+<projectRootDir>/test/fixtures/generate/exercises-final/index.html
 <projectRootDir>/test/fixtures/generate/exercises/root.css
 <projectRootDir>/test/fixtures/generate/exercises-final/root.css
 <projectRootDir>/test/fixtures/generate/exercises/root.js

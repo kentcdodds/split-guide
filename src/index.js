@@ -9,7 +9,7 @@ import {getErrorLogger} from './utils'
 
 // We need to escape \ when used with constructor
 // See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
-const CommentStartTpl = '(?:\\/\\/\\s|\\/\\*\\s?)'
+const CommentStartTpl = '(?:\\/\\/\\s|\\/\\*\\s?|<!--\\s?)'
 const CommentEndTpl = '.*?\\n'
 
 const getRegEx = entity =>
