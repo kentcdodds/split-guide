@@ -15,11 +15,14 @@
   "bin": {
     "split-guide": "dist/bin/index.js"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "keywords": [],
-  "author": "Kent C. Dodds <kent@doddsfamily.us> (http://kentcdodds.com/)",
+  "author": "Kent C. Dodds <me@kentcdodds.com> (https://kentcdodds.com/)",
   "license": "MIT",
   "dependencies": {
+    "@babel/runtime": "^7.11.2",
     "chalk": "^2.1.0",
     "common-tags": "^1.4.0",
     "glob": "^7.0.6",
@@ -30,21 +33,14 @@
     "yargs": "^7.0.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "directory-tree": "^1.1.0",
-    "kcd-scripts": "^0.2.3",
+    "directory-tree": "^2.2.4",
+    "kcd-scripts": "^6.5.1",
     "spawn-command": "0.0.2",
-    "strip-ansi": "^4.0.0",
-    "yargs-parser": "^5.0.0"
+    "strip-ansi": "^6.0.0",
+    "yargs-parser": "^20.2.0"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js"
-  },
-  "eslintIgnore": ["node_modules", "coverage", "dist"],
-  "babel": {
-    "presets": "kcd-scripts/babel",
-    "plugins": ["transform-runtime"]
   },
   "repository": {
     "type": "git",

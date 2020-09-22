@@ -10,7 +10,7 @@ import stripAnsi from 'strip-ansi'
 import {getErrorLogger} from '../../utils'
 
 const SPLIT_GUIDE_PATH = require.resolve('../index')
-const BABEL_BIN_PATH = require.resolve('babel-cli/bin/babel-node')
+const BABEL_BIN_PATH = require.resolve('@babel/cli/bin/babel')
 
 test('split-guide --help', () => {
   return runSplitGuideCLI('--help').then(stdout => {
