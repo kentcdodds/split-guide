@@ -5,6 +5,7 @@ import chalk from 'chalk'
 import {oneLine} from 'common-tags'
 import splitGuide from '../index'
 
+// eslint-disable-next-line babel/no-unused-expressions
 yargs
   .usage('Usage: $0')
   .command(

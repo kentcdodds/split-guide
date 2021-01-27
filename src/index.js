@@ -68,13 +68,11 @@ function splitGuide({
 
   function createNewFileContents(fileObjs) {
     return fileObjs.map(fileObj => {
-      return Object.assign(
-        {
-          finalContents: createFinalContents(fileObj.contents),
-          workshopContents: createWorkshopContents(fileObj.contents),
-        },
-        fileObj,
-      )
+      return {
+        finalContents: createFinalContents(fileObj.contents),
+        workshopContents: createWorkshopContents(fileObj.contents),
+        ...fileObj,
+      }
     })
   }
 
